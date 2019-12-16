@@ -1,9 +1,11 @@
-import Axios from "axios"
+import axios from "axios"
+
+const API_URL = 'https://itc-bootcamp-19-dot-charcha-dev.appspot.com/tweet'
 
 export function getTweets() {
-    return Axios.get('https://itc-bootcamp-19.appspot.com/tweet')
+    return axios.get(API_URL)
 }
 
 export function postTweet(payload) {
-    return Axios.post('https://itc-bootcamp-19.appspot.com/tweet', payload)
+    return axios.post(API_URL, payload)
 }

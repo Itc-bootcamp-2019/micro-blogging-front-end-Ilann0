@@ -41,20 +41,23 @@ class CreateTweet extends React.Component {
                     id="tweet-input"
                     cols="30"
                     rows="10"
+                    placeholder="What you have in mind.."
                     value={inputVal}
                     onChange={(e) => this.handleInputChange(e)}
                 />
-                <TweetManagerContext.Consumer>
-                    {
-                        ({ onPost }) => (
-                            <button
-                                className="post-btn"
-                                onClick={() => this.handlePost(inputVal, onPost)}
-                            >Post</button>
-                        )
-                    }
-                </TweetManagerContext.Consumer>
-                <span className="chars-left" >{ inputLen }/140</span>
+                <div className="tb-bottom">
+                    <span className="chars-left" >{ inputLen }/140</span>
+                    <TweetManagerContext.Consumer>
+                        {
+                            ({ onPost }) => (
+                                <button
+                                    className="post-btn"
+                                    onClick={() => this.handlePost(inputVal, onPost)}
+                                >Post</button>
+                            )
+                        }
+                    </TweetManagerContext.Consumer>
+                </div>
             </div>
         );
     }

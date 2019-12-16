@@ -1,7 +1,14 @@
 .App {
-  /*display: flex;*/
-  /*justify-content: center;*/
-  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .App-logo {
@@ -19,8 +26,93 @@
   color: white;
 }
 
+/* CreateTweet Component */
+
 .tweet-box {
+  border: 2px solid white;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 600px;
+  height: 180px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.tb-bottom {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.tb-bottom span {
+  align-self: center;
+}
+
+.chars-left {
+  color: white;
+}
+
+.chars-left.max-reached {
+
+}
+
+.post-btn {
+  text-align: center;
+  height: 34px;
+  width: 68px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  line-height: 19px;
+  background-color: #007BFF;
+  border-radius: 4px;
+  transition-duration: 0.2s
+}
+
+.post-btn:hover {
+  opacity: 90%;
+}
+
+.post-btn:active {
+  opacity: 70%;
+}
+
+#tweet-input {
+  background-color: transparent;
+  border: none;
+  resize: none;
+  color: white;
+  height: 75%;
+  width: 100%;
 }
 
 #tweet-input::placeholder {
+  all: unset;
+  color: #cccccc;
+}
+
+/* Tweet Component */
+
+.display-tweet-container {
+  background-color: #343A40;
+  border-radius: 6px;
+  width: 600px;
+  height: 100px;
+  margin: 7.5px 0;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.dt-top {
+  color: #6C757D;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }

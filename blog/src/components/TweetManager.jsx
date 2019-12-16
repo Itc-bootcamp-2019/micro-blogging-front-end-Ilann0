@@ -14,19 +14,21 @@ class TweetManager extends React.Component {
         this.state = {
             tweets: [],
             tweetCounter: 0,
-            onPost: this.updateTweets.bind(this)
+            onPost: this.updateLocalTweets.bind(this)
         }
     }
 
-    updateTweets(tweet) {
+    updateLocalTweets(tweet) {
+        const timeStamp = new Date()
+        const timeStampString = timeStamp.toISOString()
+        const tweetObj = {
+            content: tweet,
+            userName: 'Arnold Schwarzenegger',
+            date: timeStampString,
+        }
+        postTweet(tweetObj).then((response) => console.log(response))
+                           .catch(() => alert("We encountered a problem with the server.\nPlease try again later :)"))
         this.setState(prevState => {
-            const tweetObj = {
-                content: tweet,
-                userName: 'Ilann',
-                date: '10/10/2019',
-                id: prevState.tweetCounter + 1
-            }
-
             return {
                tweets: [ tweetObj, ...prevState.tweets ],
                tweetCounter: ++prevState.tweetCounter
@@ -34,10 +36,19 @@ class TweetManager extends React.Component {
         })
     }
 
-    componentDidMount() {
+    updateData() {
         getTweets().then(response => this.setState({
-            tweets: response.data.tweets
-        }))
+            tweets: response.data.tweets,
+        })).catch((response) => (response.status > 399 && alert("We encountered a problem with the server.\nPlease try again later :)")))
+    }
+
+    componentDidMount() {
+        this.updateData()
+        this.fetchTweetsInterval = setInterval(this.updateData, 15000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.fetchTweetsInterval)
     }
 
     render() {
