@@ -39,8 +39,6 @@ class CreateTweet extends React.Component {
                 <textarea
                     name="tweet"
                     id="tweet-input"
-                    cols="30"
-                    rows="10"
                     placeholder="What you have in mind.."
                     value={inputVal}
                     onChange={(e) => this.handleInputChange(e)}

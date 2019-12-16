@@ -20,11 +20,10 @@ class TweetManager extends React.Component {
 
     updateLocalTweets(tweet) {
         const timeStamp = new Date()
-        const timeStampString = timeStamp.toISOString()
         const tweetObj = {
             content: tweet,
             userName: 'Arnold Schwarzenegger',
-            date: timeStampString,
+            date: timeStamp.toISOString(),
         }
         postTweet(tweetObj).then((response) => console.log(response))
                            .catch(() => alert("We encountered a problem with the server.\nPlease try again later :)"))

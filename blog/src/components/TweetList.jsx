@@ -8,7 +8,7 @@ function TweetList() {
         <TweetManagerContext.Consumer>
             {
                 ({ tweets }) => tweets.map( tweet => (
-                        <Tweet key={`tweet-${ tweet.id }`} tweet={ tweet } />
+                        <Tweet key={ tweet.date } tweet={ tweet } />
                     ))
             }
         </TweetManagerContext.Consumer>
