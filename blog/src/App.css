@@ -59,12 +59,12 @@ nav a:hover {
 /* CreateTweet Component */
 
 .content-main-container {
-	width: 100%;
-	padding: 0 10%;
-	display: flex;
-  	flex-direction: column;
-  	justify-content: center;
-  	align-items: center;
+  width: 100%;
+  padding: 0 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .tweet-box {
@@ -140,22 +140,28 @@ nav a:hover {
 .display-tweet-container {
   background-color: #343A40;
   border-radius: 6px;
-  width: 600px;
-  height: 100px;
+  min-height: 100px;
   margin: 7.5px 0;
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 10px 20px;
   max-width: 700px;
   width: 100%;
+  flex-grow: 1;
 }
+
+
 
 .dt-top {
   color: #6C757D;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  padding: 1% 0;
+}
 
+
+
+.dt-content {
+  padding: 3% 0;
 }

@@ -8,7 +8,7 @@ function Tweet(props) {
                 <span className="dt-user">{ tweet.userName }</span>
                 <span className="dt-date" >{ tweet.date }</span>
             </div>
-            <span className="dt-content" >{ tweet.content }</span><br/>
+            <span className="dt-content" >{ tweet.content }</span>
         </div>
     )
 }
