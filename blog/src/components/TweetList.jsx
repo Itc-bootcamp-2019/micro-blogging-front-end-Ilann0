@@ -1,12 +1,17 @@
 import React from "react"
-import Tweet from "./Tweet";
+import Tweet from "./Tweet"
 
-function TweetList(props) {
-    const { tweets } = props
+import TweetManagerContext from "../contexts/TweetManagerContext"
+
+function TweetList() {
     return (
-        <div>
-            { tweets.map( tweet => <Tweet tweet={ tweet } /> ) }
-        </div>
+        <TweetManagerContext.Consumer>
+            {
+                ({ tweets }) => tweets.map( tweet => (
+                        <Tweet key={`tweet-${ tweet.id }`} tweet={ tweet } />
+                    ))
+            }
+        </TweetManagerContext.Consumer>
     )
 }
 
