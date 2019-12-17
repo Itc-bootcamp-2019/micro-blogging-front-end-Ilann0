@@ -7,5 +7,5 @@ export function getTweets() {
 }
 
 export function postTweet(payload) {
-    return axios.post(API_URL, payload)
+    return axios.post(API_URL, { tweet: payload })
 }

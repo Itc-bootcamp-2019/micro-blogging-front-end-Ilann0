@@ -1,7 +1,7 @@
 import React from 'react'
 import TweetManagerContext from "../contexts/TweetManagerContext";
 
-class CreateTweet extends React.Component {
+class CreateTweet extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -35,7 +35,7 @@ class CreateTweet extends React.Component {
     render() {
         const { inputVal, inputLen } = this.state
         return (
-            <div className="tweet-box">
+            <div className="tweet-box input-frame">
                 <textarea
                     name="tweet"
                     id="tweet-input"

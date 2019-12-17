@@ -25,6 +25,7 @@ body {
   color: white;
 }
 
+/*----------------------------------------------------------*/
 /* Navbar Component */
 
 nav {
@@ -67,9 +68,13 @@ nav a:hover {
   align-items: center;
 }
 
+.input-frame {
+    border: 2px solid white;
+    border-radius: 6px;
+}
+
 .tweet-box {
-  border: 2px solid white;
-  border-radius: 6px;
+    padding: 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -151,8 +156,6 @@ nav a:hover {
   flex-grow: 1;
 }
 
-
-
 .dt-top {
   color: #6C757D;
   display: flex;
@@ -160,8 +163,48 @@ nav a:hover {
   padding: 1% 0;
 }
 
-
-
 .dt-content {
-  padding: 3% 0;
+    padding: 3% 0;
+    word-wrap: break-word;
+}
+
+/*----------------------------------------------------------*/
+/* Profile Page */
+
+.profile-main-container {
+  color: white;
+  /*height: 200px;*/
+  width: 100%;
+  max-width: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-main-container > h1 {
+    font-size: 36px;
+    line-height: 42px;
+}
+
+.profile-main-container > label {
+    font-size: 18px;
+    line-height: 21px;
+    /*margin-bottom: 6px;*/
+
+}
+
+.profile-main-container .input-frame {
+    padding: 16px 20px;
+    margin: 16px 0;
+}
+
+.input-frame > input {
+    background-color: transparent;
+    border: none;
+    color: #cccccc;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-main-container > button {
+    align-self: flex-end;
 }

@@ -11,14 +11,12 @@ function App() {
   return (
       <div className="App">
           <Router>
-          <Navbar />
+              <Navbar />
               <section className="content-main-container">
                   <Switch>
                       <Route exact path="/">
                           <TweetManager />
                       </Route>
-                  </Switch>
-                  <Switch>
                       <Route exact path="/profile">
                           <Profile />
                       </Route>

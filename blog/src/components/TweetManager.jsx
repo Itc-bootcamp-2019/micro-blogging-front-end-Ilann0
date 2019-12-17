@@ -8,21 +8,22 @@ import { getTweets, postTweet } from '../lib/api'
 
 import TweetManagerContext from "../contexts/TweetManagerContext"
 
-class TweetManager extends React.Component {
+class TweetManager extends React.PureComponent {
     constructor(props) {
         super(props)
+        this.updateTweets = this.updateTweets.bind(this)
         this.state = {
             tweets: [],
-            tweetCounter: 0,
-            onPost: this.updateLocalTweets.bind(this)
+            onPost: this.updateTweets,
         }
     }
 
-    updateLocalTweets(tweet) {
+    updateTweets(tweet) {
         const timeStamp = new Date()
+        const userName = localStorage.getItem('username')
         const tweetObj = {
+            userName: !!userName ? userName : 'anonymous',
             content: tweet,
-            userName: 'Arnold Schwarzenegger',
             date: timeStamp.toISOString(),
         }
         postTweet(tweetObj).then((response) => console.log(response))
@@ -30,7 +31,6 @@ class TweetManager extends React.Component {
         this.setState(prevState => {
             return {
                tweets: [ tweetObj, ...prevState.tweets ],
-               tweetCounter: ++prevState.tweetCounter
             }
         })
     }
@@ -43,7 +43,7 @@ class TweetManager extends React.Component {
 
     componentDidMount() {
         this.updateData()
-        this.fetchTweetsInterval = setInterval(this.updateData, 15000)
+        this.fetchTweetsInterval = setInterval(this.updateData.bind(this), 10000)
     }
 
     componentWillUnmount() {
