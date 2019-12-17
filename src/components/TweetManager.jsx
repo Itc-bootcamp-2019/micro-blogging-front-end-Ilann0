@@ -1,11 +1,13 @@
 import React from "react"
 
+// Components
 import TweetList from "./TweetList"
 import CreateTweet from "./CreateTweet"
 
+// General API functions
 import { getTweets, postTweet } from '../lib/api'
 
-
+// Context
 import TweetManagerContext from "../contexts/TweetManagerContext"
 
 class TweetManager extends React.PureComponent {
@@ -55,7 +57,7 @@ class TweetManager extends React.PureComponent {
 
     componentDidMount() {
         this.updateData()
-        this.fetchTweetsInterval = setInterval(this.updateData.bind(this), 10000)
+        this.fetchTweetsInterval = setInterval(this.updateData, 10000)
     }
 
     componentWillUnmount() {
