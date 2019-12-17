@@ -19,6 +19,7 @@ class TweetManager extends React.PureComponent {
             onPost: this.updateTweets,
             requestPending: false,
             initialLoad: true,
+            failedRequest: false,
         }
     }
 
@@ -44,6 +45,16 @@ class TweetManager extends React.PureComponent {
         })
     }
 
+    handleFetchError(error) {
+        console.log(error);
+        clearInterval(this.fetchTweetsInterval)
+        this.setState({
+            requestPending: false,
+            initialLoad: false,
+            failedRequest: true,
+        })
+    }
+
     updateData() {
         getTweets()
             .then(response => this.setState({
@@ -51,8 +62,9 @@ class TweetManager extends React.PureComponent {
                         initialLoad: false,
                     }
                 )
-            ).catch((response) => (response.status > 399 && alert("We encountered a problem with the server.\nPlease try again later :)")))
-
+            ).catch( error => {
+                return !!error.response && (error.response.data.statusCode > 399 && this.handleFetchError(error))
+            })
     }
 
     componentDidMount() {

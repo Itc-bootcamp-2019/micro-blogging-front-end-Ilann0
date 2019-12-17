@@ -44,7 +44,10 @@ class CreateTweet extends React.PureComponent {
                     onChange={(e) => this.handleInputChange(e)}
                 />
                 <div className="tb-bottom">
-                    <span className="chars-left" >{ inputLen }/140</span>
+                    <span className={ inputLen > 132 ?
+                        (inputLen > 139 ? 'chars-left red' : 'chars-left orange')
+                        : 'chars-left' }
+                    >{ inputLen }/140</span>
                     <TweetManagerContext.Consumer>
                         {
                             ({onPost, requestPending}) => {
@@ -53,7 +56,7 @@ class CreateTweet extends React.PureComponent {
                                 } else {
                                     return (
                                         <button
-                                            className="post-btn"
+                                            className={ (inputLen === 0) ? 'post-btn disabled' : 'post-btn' }
                                             onClick={() => this.handlePost(inputVal, onPost)}
                                         >Post</button>
                                     )

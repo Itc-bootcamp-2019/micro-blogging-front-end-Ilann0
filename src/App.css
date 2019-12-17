@@ -75,7 +75,6 @@ nav a:hover {
 }
 
 .tweet-box {
-    padding: 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -99,10 +98,15 @@ nav a:hover {
 
 .chars-left {
   color: white;
+    transition-duration: 0.2s;
 }
 
-.chars-left.max-reached {
+.red {
+    color: orangered;
+}
 
+.orange {
+    color: orange;
 }
 
 .post-btn {
@@ -118,18 +122,26 @@ nav a:hover {
   transition-duration: 0.2s
 }
 
+/* Had to use rgba as opacity doesn't appear to work on my safari */
+
 .post-btn:hover {
-  opacity: 90%;
+    background-color: rgba(0, 123, 255, 0.9);
+    color: rgba(255, 255, 255, 0.9)
 }
 
+.post-btn.disabled,
 .post-btn:active {
-  opacity: 70%;
+    background-color: rgba(0, 123, 255, 0.7);
+    color: rgba(255, 255, 255, 0.7)
 }
+
+/* loader on button (hence img) */
 
 img.post-btn,
 img.post-btn:hover,
 img.post-btn:active {
-    opacity: 100%;
+    background-color: #007BFF;
+    color: white;
 }
 
 #tweet-input {
@@ -144,6 +156,21 @@ img.post-btn:active {
 #tweet-input::placeholder {
   all: unset;
   color: #cccccc;
+}
+/*----------------------------------------------------------*/
+/* TweetList Component */
+.error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.error-message h1 {
+    text-align: center;
+    font-size: 30px;
+    line-height: 55px;
+    color: #535353;
 }
 
 /*----------------------------------------------------------*/
