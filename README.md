@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Active Firebase hosting
+## Active Firebase Hosting
 
 https://micr0blog.firebaseapp.com
 
