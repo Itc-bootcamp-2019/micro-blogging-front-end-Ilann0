@@ -35,7 +35,7 @@ class Profile extends Component {
                 <div className="input-frame">
                     <input id="name-input"
                            type="text"
-                           placeholder="Yonatan"
+                           placeholder="i.e.: Yonatan"
                            onChange={(e) => this.handleInputChange(e)}
                            value={ inputVal }
                     />

@@ -31,7 +31,7 @@ body {
 nav {
 	padding: 0 6%;
 	width: 100%;
-	margin-bottom: 47px;
+    position: fixed;
 }
 
 .nav-main-container {
@@ -51,7 +51,7 @@ nav a {
 	padding: 0 20px;
 }
 
-nav a.active, 
+nav a.active,
 nav a:hover {
 	color: white;
 }
@@ -62,6 +62,7 @@ nav a:hover {
 .content-main-container {
   width: 100%;
   padding: 0 10%;
+    padding-top: 105px;
   display: flex;
   flex-direction: column;
   justify-content: center;
