@@ -41,7 +41,7 @@ class Profile extends Component {
                     />
                 </div>
                     <button className="post-btn"
-                            onClick={() => this.saveUsername(inputVal) }
+                            onClick={ () => this.saveUsername(inputVal) }
                     >Save</button>
             </div>
         );

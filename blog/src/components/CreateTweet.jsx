@@ -14,7 +14,7 @@ class CreateTweet extends React.PureComponent {
         const string    = e.target.value
         const stringLen = e.target.value.length
 
-        this.setState(prevState => {
+        this.setState(() => {
             return (stringLen < 141) && {
                 inputVal: string,
                 inputLen: stringLen,
@@ -47,12 +47,18 @@ class CreateTweet extends React.PureComponent {
                     <span className="chars-left" >{ inputLen }/140</span>
                     <TweetManagerContext.Consumer>
                         {
-                            ({ onPost }) => (
-                                <button
-                                    className="post-btn"
-                                    onClick={() => this.handlePost(inputVal, onPost)}
-                                >Post</button>
-                            )
+                            ({onPost, requestPending}) => {
+                                if (requestPending) {
+                                    return <img className="post-btn" src="https://causematch-production-snpurdytanj1dxi.netdna-ssl.com/wp-content/themes/causematch/resources/images/rdp-bars.gif" alt=""/>
+                                } else {
+                                    return (
+                                        <button
+                                            className="post-btn"
+                                            onClick={() => this.handlePost(inputVal, onPost)}
+                                        >Post</button>
+                                    )
+                                }
+                            }
                         }
                     </TweetManagerContext.Consumer>
                 </div>

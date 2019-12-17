@@ -7,11 +7,17 @@ function TweetList() {
     return (
         <TweetManagerContext.Consumer>
             {
-                ({ tweets }) => tweets.map( tweet => (
-                        <Tweet key={ tweet.date }
-                               tweet={ tweet }
-                        />
-                    ))
+                ({ tweets, initialLoad }) => {
+                    if (initialLoad) {
+                        return <img src="https://thumbs.gfycat.com/LameDifferentBalloonfish-max-1mb.gif" alt=""/>
+                    } else {
+                        return tweets.map( tweet => (
+                            <Tweet key={ tweet.date }
+                                   tweet={ tweet }
+                            />)
+                        )
+                    }
+                }
             }
         </TweetManagerContext.Consumer>
     )

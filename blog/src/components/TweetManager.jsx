@@ -15,10 +15,13 @@ class TweetManager extends React.PureComponent {
         this.state = {
             tweets: [],
             onPost: this.updateTweets,
+            requestPending: false,
+            initialLoad: true,
         }
     }
 
     updateTweets(tweet) {
+
         const timeStamp = new Date()
         const userName = localStorage.getItem('username')
         const tweetObj = {
@@ -26,19 +29,28 @@ class TweetManager extends React.PureComponent {
             content: tweet,
             date: timeStamp.toISOString(),
         }
-        postTweet(tweetObj).then((response) => console.log(response))
-                           .catch(() => alert("We encountered a problem with the server.\nPlease try again later :)"))
-        this.setState(prevState => {
-            return {
-               tweets: [ tweetObj, ...prevState.tweets ],
-            }
+        this.setState({ requestPending: true }, () => {
+            postTweet(tweetObj)
+                .then((response) => console.log(response))
+                .catch(() => alert("We encountered a problem with the server.\nPlease try again later :)"))
+            this.setState(prevState => {
+                return {
+                    tweets: [ tweetObj, ...prevState.tweets ],
+                    requestPending: false,
+                }
+            })
         })
     }
 
     updateData() {
-        getTweets().then(response => this.setState({
-            tweets: response.data.tweets,
-        })).catch((response) => (response.status > 399 && alert("We encountered a problem with the server.\nPlease try again later :)")))
+        getTweets()
+            .then(response => this.setState({
+                        tweets: response.data.tweets,
+                        initialLoad: false,
+                    }
+                )
+            ).catch((response) => (response.status > 399 && alert("We encountered a problem with the server.\nPlease try again later :)")))
+
     }
 
     componentDidMount() {
