@@ -1,5 +1,8 @@
 import React from "react"
+
 import Tweet from "./Tweet"
+
+import loader from '../assets/Double Ring-1s-200px.gif'
 
 import TweetManagerContext from "../contexts/TweetManagerContext"
 
@@ -9,7 +12,7 @@ function TweetList() {
             {
                 ({ tweets, initialLoad, failedRequest }) => {
                     if ( initialLoad ) {
-                        return <img src="https://thumbs.gfycat.com/LameDifferentBalloonfish-max-1mb.gif" alt=""/>
+                        return <img src={ loader } alt="Loading..."/>
                     } else if ( failedRequest ){
                         return (
                             <div className="error-message">

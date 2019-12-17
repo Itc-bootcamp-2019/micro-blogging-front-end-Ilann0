@@ -7,6 +7,10 @@ import CreateTweet from "./CreateTweet"
 // General API functions
 import { getTweets, postTweet } from '../lib/api'
 
+// I do realize that using a react context with this implementation is overkill
+// as it would have been easier to pass the callback as props or using hooks
+// but for the sake of the milestone I did it anyways..
+
 // Context
 import TweetManagerContext from "../contexts/TweetManagerContext"
 
@@ -34,7 +38,6 @@ class TweetManager extends React.PureComponent {
         }
         this.setState({ requestPending: true }, () => {
             postTweet(tweetObj)
-                .then((response) => console.log(response))
                 .catch(() => alert("We encountered a problem with the server.\nPlease try again later :)"))
             this.setState(prevState => {
                 return {
@@ -58,18 +61,15 @@ class TweetManager extends React.PureComponent {
     updateData() {
         getTweets()
             .then(response => this.setState({
-                        tweets: response.data.tweets,
-                        initialLoad: false,
-                    }
-                )
-            ).catch( error => {
-                return !!error.response && (error.response.data.statusCode > 399 && this.handleFetchError(error))
-            })
+                            tweets: response.data.tweets,
+                            initialLoad: false,
+                            })
+            ).catch( error => this.handleFetchError(error) )
     }
 
     componentDidMount() {
         this.updateData()
-        this.fetchTweetsInterval = setInterval(this.updateData, 10000)
+        this.fetchTweetsInterval = setInterval(this.updateData.bind(this), 10000)
     }
 
     componentWillUnmount() {

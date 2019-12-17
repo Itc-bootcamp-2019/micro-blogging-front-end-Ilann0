@@ -6,10 +6,6 @@
   box-sizing: border-box;
 }
 
-body {
-	min-width: 500px;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;

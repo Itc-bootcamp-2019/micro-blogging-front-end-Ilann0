@@ -1,14 +1,14 @@
 body {
   margin: 0;
-
+  min-width: 500px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #15202B;
-          /*#282c34;*/
 }
 
 * {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   line-height: 19px;
+  box-sizing: border-box;
 }
