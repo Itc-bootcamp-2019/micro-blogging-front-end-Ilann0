@@ -57,7 +57,7 @@ class CreateTweet extends React.PureComponent {
                                     return (
                                         <button
                                             className={ (inputLen === 0) ? 'post-btn disabled' : 'post-btn' }
-                                            onClick={() => this.handlePost(inputVal, onPost)}
+                                            onClick={ () => this.handlePost(inputVal, onPost) }
                                         >Post</button>
                                     )
                                 }

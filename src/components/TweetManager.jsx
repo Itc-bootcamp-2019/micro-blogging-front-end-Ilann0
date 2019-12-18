@@ -39,17 +39,13 @@ class TweetManager extends React.PureComponent {
         this.setState({ requestPending: true }, () => {
             postTweet(tweetObj)
                 .catch(() => alert("We encountered a problem with the server.\nPlease try again later :)"))
-            this.setState(prevState => {
-                return {
-                    tweets: [ tweetObj, ...prevState.tweets ],
-                    requestPending: false,
-                }
-            })
+                .then(() => this.setState({ requestPending: false }))
+            this.setState(prevState => ( { tweets: [ tweetObj, ...prevState.tweets ] } ))
         })
     }
 
     handleFetchError(error) {
-        console.log(error);
+        console.log(error.response);
         clearInterval(this.fetchTweetsInterval)
         this.setState({
             requestPending: false,
