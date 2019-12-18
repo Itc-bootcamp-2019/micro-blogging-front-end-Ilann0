@@ -3,8 +3,8 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
 import './App.css';
 
-import TweetManager from "./components/TweetManager";
-import Profile from "./components/Profile";
+import TweetManager from "./pages/TweetManager";
+import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 
 function App() {

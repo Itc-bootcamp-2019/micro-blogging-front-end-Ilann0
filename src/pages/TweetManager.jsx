@@ -2,8 +2,8 @@ import React from 'react';
 import { firebase } from '../firebase'
 
 // Components
-import TweetList from './TweetList';
-import CreateTweet from './CreateTweet';
+import TweetList from '../components/TweetList';
+import CreateTweet from '../components/CreateTweet';
 
 // I do realize that using a react context with this implementation is overkill
 // as it would have been easier to pass the callback as props or using hooks
@@ -45,31 +45,8 @@ class TweetManager extends React.PureComponent {
 		});
 	}
 
-	// updateTweets(tweet) {
-	// 	const timeStamp = new Date();
-	// 	const userName = localStorage.getItem('username');
-	// 	const tweetObj = {
-	// 		userName: !!userName ? userName : 'anonymous',
-	// 		content: tweet,
-	// 		date: timeStamp.toISOString(),
-	// 	};
-
-	// 	this.setState({ requestPending: true });
-	// 	postTweet(tweetObj)
-	// 		.catch(() =>
-	// 			alert(
-	// 				'We encountered a problem with the server.\nPlease try again later :)'
-	// 			)
-	// 		)
-	// 		.then(() => this.setState({ requestPending: false }));
-	// 	this.setState(prevState => ({
-	// 		tweets: [tweetObj, ...prevState.tweets],
-	// 	}));
-	// }
-
 	handleFetchError(error) {
 		console.log(error.response);
-		clearInterval(this.fetchTweetsInterval);
 		this.setState({
 			requestPending: false,
 			initialLoad: false,
@@ -84,15 +61,6 @@ class TweetManager extends React.PureComponent {
 				initialLoad: false,
 			})
 		});
-			// .then(response => {
-			// 	console.log(response.docs.map(doc => console.log('here ', response.docs.map(doc => doc.data()))))
-			// 	this.setState({
-			// 		// tweets: response.data.tweets,
-			// 		tweets: response.docs.map(doc => doc.data()),
-			// 		initialLoad: false,
-			// 	})
-			// })
-			// .catch(error => this.handleFetchError(error));
 	}
 
 	componentDidMount() {
