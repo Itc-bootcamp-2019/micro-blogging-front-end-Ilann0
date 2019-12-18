@@ -7,10 +7,14 @@ function Navbar() {
             <div className="nav-main-container">
                 <NavLink exact to="/"
                          activeClassName={ 'active' }
-                >Home</NavLink>
+                >
+                    Home
+                </NavLink>
                 <NavLink exact to="/profile"
                          activeClassName={ 'active' }
-                >Profile</NavLink>
+                >
+                    Profile
+                </NavLink>
             </div>
         </nav>
     )

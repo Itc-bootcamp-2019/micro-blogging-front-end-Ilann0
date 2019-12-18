@@ -1,5 +1,5 @@
 import React from 'react'
-import TweetManagerContext from "../contexts/TweetManagerContext";
+import TweetManagerContext from "../contexts/TweetManagerContext"
 
 class CreateTweet extends React.PureComponent {
     constructor(props) {
@@ -47,7 +47,9 @@ class CreateTweet extends React.PureComponent {
                     <span className={ inputLen > 132 ?
                         (inputLen > 139 ? 'chars-left red' : 'chars-left orange')
                         : 'chars-left' }
-                    >{ inputLen }/140</span>
+                    >
+                        { inputLen }/140
+                    </span>
                     <TweetManagerContext.Consumer>
                         {
                             ({onPost, requestPending}) => {

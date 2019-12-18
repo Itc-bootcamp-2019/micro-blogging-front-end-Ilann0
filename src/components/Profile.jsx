@@ -21,7 +21,7 @@ class Profile extends Component {
 
     componentDidMount() {
         const userName = localStorage.getItem('username')
-        !!userName && this.setState({ inputVal: userName })
+        if (userName) this.setState({ inputVal: userName })
     }
 
     render() {
