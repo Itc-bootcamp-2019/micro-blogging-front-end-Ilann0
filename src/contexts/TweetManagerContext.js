@@ -5,6 +5,7 @@ const TweetManagerContext = React.createContext({
     onPost: ( tweet ) => {},
     requestPending: false,
     initialLoad: true,
+    failedRequest: false,
 })
 
 export default TweetManagerContext
