@@ -1,16 +1,13 @@
 import React from 'react';
-import { firebase } from '../firebase'
+import { firebase } from "../lib/firebase"; //to remove
 
 // Components
 import TweetList from '../components/TweetList';
 import CreateTweet from '../components/CreateTweet';
-
-// I do realize that using a react context with this implementation is overkill
-// as it would have been easier to pass the callback as props or using hooks
-// but for the sake of the milestone I did it anyways..
-
 // Context
 import TweetManagerContext from '../contexts/TweetManagerContext';
+// Database
+import { subscribeTweets, postTweet } from '../lib/firebaseHelpers';
 
 class TweetManager extends React.PureComponent {
 	constructor(props) {
@@ -19,36 +16,26 @@ class TweetManager extends React.PureComponent {
 							.firestore()
 							.collection('tweets');
 
-		this.postTweet = this.postTweet.bind(this);
+		this.handleTweetSend = this.handleTweetSend.bind(this);
 
 		this.state = {
 			tweets: [],
-			onPost: this.postTweet,
+			onPost: this.handleTweetSend,
 			requestPending: false,
 			initialLoad: true,
 			failedRequest: false,
 		};
 	}
 
-	postTweet(tweet) {
-		const timeStamp = new Date();
-		const username = localStorage.getItem('username');
-		const tweetObj = {
-			username: username ? username : 'anonymous',
-			content: tweet,
-			date: timeStamp.toISOString(),
-		};
-
-		this.setState({ requestPending: true });
-		this.firebase.add(tweetObj).then((response) => {
-			console.log(response)
-			console.log(response.data)
-			this.setState({ requestPending: false })
-		});
+	handleTweetSend(tweet) {
+		this.setState({ requestPending: true })
+		postTweet(tweet)
+			.then(this.setState({ requestPending: false }))
+			.catch( error => this.handleFetchError(error) )
 	}
 
 	handleFetchError(error) {
-		console.log(error.response);
+		console.error(error.response);
 		this.setState({
 			requestPending: false,
 			initialLoad: false,
@@ -56,23 +43,18 @@ class TweetManager extends React.PureComponent {
 		});
 	}
 
+	updateTweets(tweets) {
+		this.setState({ tweets })
+	}
+
 	componentDidMount() {
-		this.unsubscribe = this.firebase
-			.orderBy('date', 'desc')
-			.onSnapshot(snapshot => {
-				this.setState({
-					initialLoad: false,
-					tweets: snapshot.docs.map(doc => {
-						const tweet = doc.data();
-						tweet.id = doc.id;
-						return tweet;
-					}),
-				});
-			});
+		this.unsubscribeTweets = subscribeTweets(this.updateTweets.bind(this))
+
+		this.setState({ initialLoad: false })
 	}
 
 	componentWillUnmount() {
-		this.unsubscribe();
+		this.unsubscribeTweets();
 	}
 
 	render() {
