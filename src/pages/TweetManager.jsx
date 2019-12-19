@@ -30,7 +30,7 @@ class TweetManager extends React.PureComponent {
 	handleTweetSend(tweet) {
 		this.setState({ requestPending: true })
 		postTweet(tweet)
-			.then(this.setState({ requestPending: false }))
+			.then( () => this.setState({ requestPending: false }) )
 			.catch( error => this.handleFetchError(error) )
 	}
 
@@ -44,13 +44,13 @@ class TweetManager extends React.PureComponent {
 	}
 
 	updateTweets(tweets) {
-		this.setState({ tweets })
+		this.setState({ tweets }, () => {
+			if (this.state.initialLoad) this.setState({ initialLoad: false })
+		})
 	}
 
 	componentDidMount() {
 		this.unsubscribeTweets = subscribeTweets(this.updateTweets.bind(this))
-
-		this.setState({ initialLoad: false })
 	}
 
 	componentWillUnmount() {

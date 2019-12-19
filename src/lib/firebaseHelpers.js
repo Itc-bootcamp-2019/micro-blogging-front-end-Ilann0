@@ -1,7 +1,9 @@
 import { firebase } from "./firebase";
 
-
 const db = firebase.firestore();
+
+// ----------------------------------------------
+// Tweets
 
 export function subscribeTweets(callback) {
     return db.collection('tweets')
@@ -9,6 +11,12 @@ export function subscribeTweets(callback) {
              .onSnapshot( snapshot => {
                  callback(handleSnapshot(snapshot))
              })
+}
+
+function handleSnapshot(snapshot) {
+	return snapshot.docs.map(doc => {
+		return { id: doc.id, ...doc.data() };
+	});
 }
 
 export function postTweet(tweet) {
@@ -20,8 +28,5 @@ export function postTweet(tweet) {
      })
 }
 
-function handleSnapshot(snapshot) {
-    return snapshot.docs.map( doc => {
-        return { id: doc.id, ...doc.data() }
-    })
-}
+// ----------------------------------------------
+// Users
