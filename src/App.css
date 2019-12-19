@@ -115,7 +115,8 @@ nav a:hover {
   line-height: 19px;
   background-color: #007BFF;
   border-radius: 4px;
-  transition-duration: 0.2s
+  transition-duration: 0.2s;
+  transition-property: background-color, color;
 }
 
 /* Had to use rgba as opacity doesn't appear to work on my safari */
@@ -125,10 +126,17 @@ nav a:hover {
     color: rgba(255, 255, 255, 0.9)
 }
 
+.post-btn.loading,
 .post-btn.disabled,
 .post-btn:active {
     background-color: rgba(0, 123, 255, 0.7);
     color: rgba(255, 255, 255, 0.7)
+}
+
+.post-btn.loading {
+	background-image: url(./assets/btn-loader.gif);
+	background-size: cover;
+	background-position: center;
 }
 
 /* loader on button (hence img) */
@@ -155,6 +163,7 @@ img.post-btn:active {
 }
 /*----------------------------------------------------------*/
 /* TweetList Component */
+
 .error-message {
     display: flex;
     justify-content: center;
@@ -203,7 +212,6 @@ img.post-btn:active {
 
 .profile-main-container {
   color: white;
-  /*height: 200px;*/
   width: 100%;
   max-width: 700px;
     display: flex;

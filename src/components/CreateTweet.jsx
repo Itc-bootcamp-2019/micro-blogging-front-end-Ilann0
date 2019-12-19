@@ -33,7 +33,8 @@ class CreateTweet extends React.PureComponent {
     }
 
     render() {
-        const { inputVal, inputLen } = this.state
+		const { inputVal, inputLen } = this.state
+		const buttonClass = inputLen ? 'post-btn' : 'post-btn disabled';
         return (
 			<div className="tweet-box input-frame">
 				<textarea
@@ -56,32 +57,24 @@ class CreateTweet extends React.PureComponent {
 						{inputLen}/140
 					</span>
 					<TweetManagerContext.Consumer>
-						{({ onPost, requestPending }) => {
-							if (requestPending) {
+						{
+						({ onPost, requestPending }) => {
 								return (
-									<img
-										className="post-btn"
-										src="https://causematch-production-snpurdytanj1dxi.netdna-ssl.com/wp-content/themes/causematch/resources/images/rdp-bars.gif"
-										alt=""
-									/>
-								);
-							} else {
-								return (
-									<button
-										className={
-											inputLen === 0
-												? 'post-btn disabled'
-												: 'post-btn'
-										}
-										onClick={() =>
-											this.handlePost(inputVal, inputLen, onPost)
-										}
-									>
-										Post
-									</button>
-								);
+								<button
+									className={ 
+										requestPending 
+											? buttonClass + ' loading' 
+											: buttonClass
+									}
+									onClick={() =>
+										this.handlePost(inputVal, inputLen, onPost)
+									}
+								>
+									{!requestPending && 'Post'}
+								</button>
+								)
 							}
-						}}
+						}
 					</TweetManagerContext.Consumer>
 				</div>
 			</div>

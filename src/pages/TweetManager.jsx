@@ -32,9 +32,9 @@ class TweetManager extends React.PureComponent {
 
 	postTweet(tweet) {
 		const timeStamp = new Date();
-		const userName = localStorage.getItem('username');
+		const username = localStorage.getItem('username');
 		const tweetObj = {
-			userName: userName ? userName : 'anonymous',
+			username: username ? username : 'anonymous',
 			content: tweet,
 			date: timeStamp.toISOString(),
 		};

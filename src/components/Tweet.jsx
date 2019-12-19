@@ -5,7 +5,7 @@ function Tweet(props) {
     return (
         <div className="display-tweet-container">
             <div className="dt-top">
-                <span className="dt-user">{ tweet.userName }</span>
+                <span className="dt-user">{ tweet.username }</span>
                 <span className="dt-date" >{ tweet.date }</span>
             </div>
             <span className="dt-content" >{ tweet.content }</span>
