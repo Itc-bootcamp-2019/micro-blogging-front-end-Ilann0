@@ -2,14 +2,14 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = firebase.initializeApp({
-	apiKey: 'AIzaSyDCKDGvwkiDqOenrHZsZLpLo4izLGwMX1E',
-	authDomain: 'micr0blog.firebaseapp.com',
-	databaseURL: 'https://micr0blog.firebaseio.com',
-	projectId: 'micr0blog',
-	storageBucket: 'micr0blog.appspot.com',
-	messagingSenderId: '1015031581775',
-	appId: '1:1015031581775:web:0d3a198330503dc4ec6e3a',
-	measurementId: 'G-GFGG6KVMKQ',
+	apiKey: process.env.REACT_APP_IKEY,
+	authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+	databaseURL: process.env.REACT_APP_DATABASE_URL,
+	projectId: process.env.REACT_APP_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+	appId: process.env.REACT_APP_APP_ID,
+	measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 });
 
 export { firebaseConfig as firebase }

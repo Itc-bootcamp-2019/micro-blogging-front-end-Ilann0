@@ -28,7 +28,7 @@ function TweetList() {
 					);
 				} else {
 					return tweets.map(tweet => (
-						<Tweet key={tweet.date} tweet={tweet} />
+						<Tweet key={tweet.id} tweet={tweet} />
 					));
 				}
 			}}

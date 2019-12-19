@@ -16,7 +16,7 @@ class Profile extends Component {
 
     saveUsername(userName) {
         localStorage.setItem('username', userName)
-        console.log(localStorage.getItem('username'))
+        alert(`User has been saved as "${userName}"`)
     }
 
     componentDidMount() {

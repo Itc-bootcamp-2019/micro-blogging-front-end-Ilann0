@@ -19,18 +19,18 @@ class TweetManager extends React.PureComponent {
 							.firestore()
 							.collection('tweets');
 
-		this.updateTweets = this.updateTweets.bind(this);
+		this.postTweet = this.postTweet.bind(this);
 
 		this.state = {
 			tweets: [],
-			onPost: this.updateTweets,
+			onPost: this.postTweet,
 			requestPending: false,
 			initialLoad: true,
 			failedRequest: false,
 		};
 	}
 
-	updateTweets(tweet) {
+	postTweet(tweet) {
 		const timeStamp = new Date();
 		const userName = localStorage.getItem('username');
 		const tweetObj = {
@@ -40,7 +40,9 @@ class TweetManager extends React.PureComponent {
 		};
 
 		this.setState({ requestPending: true });
-		this.firebase.add(tweetObj).then(() => {
+		this.firebase.add(tweetObj).then((response) => {
+			console.log(response)
+			console.log(response.data)
 			this.setState({ requestPending: false })
 		});
 	}
@@ -54,17 +56,19 @@ class TweetManager extends React.PureComponent {
 		});
 	}
 
-	updateData() {
-		this.unsubscribe = this.firebase.orderBy('date', 'desc').onSnapshot(snapshot => {
-			this.setState({
-				tweets: snapshot.docs.map(doc => doc.data()),
-				initialLoad: false,
-			})
-		});
-	}
-
 	componentDidMount() {
-		this.updateData();
+		this.unsubscribe = this.firebase
+			.orderBy('date', 'desc')
+			.onSnapshot(snapshot => {
+				this.setState({
+					initialLoad: false,
+					tweets: snapshot.docs.map(doc => {
+						const tweet = doc.data();
+						tweet.id = doc.id;
+						return tweet;
+					}),
+				});
+			});
 	}
 
 	componentWillUnmount() {
