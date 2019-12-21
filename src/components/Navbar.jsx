@@ -15,6 +15,11 @@ function Navbar() {
                 >
                     Profile
                 </NavLink>
+                <NavLink exact to="/login"
+                    activeClassName={ 'active' }
+                >
+                    Login
+                </NavLink>
             </div>
         </nav>
     )

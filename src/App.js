@@ -6,6 +6,7 @@ import './App.css';
 import TweetManager from "./pages/TweetManager";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
                       </Route>
                       <Route exact path="/profile">
                           <Profile />
+                      </Route>
+                      <Route exact path="/login">
+                          <Login />
                       </Route>
                   </Switch>
               </section>

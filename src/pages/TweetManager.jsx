@@ -1,5 +1,4 @@
 import React from 'react';
-import { firebase } from "../lib/firebase"; //to remove
 
 // Components
 import TweetList from '../components/TweetList';
@@ -12,15 +11,10 @@ import { subscribeTweets, postTweet } from '../lib/firebaseHelpers';
 class TweetManager extends React.PureComponent {
 	constructor(props) {
 		super(props);
-		this.firebase = firebase
-							.firestore()
-							.collection('tweets');
-
-		this.handleTweetSend = this.handleTweetSend.bind(this);
 
 		this.state = {
 			tweets: [],
-			onPost: this.handleTweetSend,
+			onPost: this.handleTweetSend.bind(this),
 			requestPending: false,
 			initialLoad: true,
 			failedRequest: false,
@@ -28,10 +22,10 @@ class TweetManager extends React.PureComponent {
 	}
 
 	handleTweetSend(tweet) {
-		this.setState({ requestPending: true })
+		this.setState({ requestPending: true });
 		postTweet(tweet)
-			.then( () => this.setState({ requestPending: false }) )
-			.catch( error => this.handleFetchError(error) )
+			.then(() => this.setState({ requestPending: false }))
+			.catch(error => this.handleFetchError(error));
 	}
 
 	handleFetchError(error) {
@@ -45,12 +39,12 @@ class TweetManager extends React.PureComponent {
 
 	updateTweets(tweets) {
 		this.setState({ tweets }, () => {
-			if (this.state.initialLoad) this.setState({ initialLoad: false })
-		})
+			if (this.state.initialLoad) this.setState({ initialLoad: false });
+		});
 	}
 
 	componentDidMount() {
-		this.unsubscribeTweets = subscribeTweets(this.updateTweets.bind(this))
+		this.unsubscribeTweets = subscribeTweets(this.updateTweets.bind(this));
 	}
 
 	componentWillUnmount() {
