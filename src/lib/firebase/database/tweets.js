@@ -1,11 +1,12 @@
 import { tweetsRef } from "./refs";
 
 export function subscribeTweets(callback) {
-    return tweetsRef.onSnapshot(snapshot => {
-            callback(handleSnapshot(snapshot));
-        }, error => {
-            console.error(error)
-        });
+    return tweetsRef.orderBy('date', 'desc')
+        .onSnapshot(snapshot => {
+                callback(handleSnapshot(snapshot));
+            }, error => {
+                console.error(error)
+            });
 }
 
 function handleSnapshot(snapshot) {
@@ -18,10 +19,9 @@ function handleSnapshot(snapshot) {
 }
 
 // change to take tweet obj
-export function postTweet(tweet) {
+export function postTweet(tweetObj) {
     return tweetsRef.add({
-            content: tweet,
-            username: localStorage.getItem('username') ? localStorage.getItem('username') : 'anonymous',
+            ...tweetObj,
             date: new Date().toISOString(),
         });
 }

@@ -6,7 +6,7 @@ import CreateTweet from '../components/CreateTweet';
 // Context
 import TweetManagerContext from '../contexts/TweetManagerContext';
 // Database
-import { subscribeTweets, postTweet } from '../lib/firebaseHelpers';
+import { subscribeTweets, postTweet } from '../lib/firebase/database/tweets';
 
 class TweetManager extends React.PureComponent {
 	constructor(props) {
@@ -18,13 +18,17 @@ class TweetManager extends React.PureComponent {
 			requestPending: false,
 			initialLoad: true,
 			failedRequest: false,
+			user: this.props.isAllowed,
 		};
 	}
 
 	handleTweetSend(tweet) {
 		this.setState({ requestPending: true });
-		postTweet(tweet)
-			.then(() => this.setState({ requestPending: false }))
+		postTweet({ 
+			content: tweet,
+			username: this.state.user.username,
+		 })
+		 	.then(() => this.setState({ requestPending: false }))
 			.catch(error => this.handleFetchError(error));
 	}
 

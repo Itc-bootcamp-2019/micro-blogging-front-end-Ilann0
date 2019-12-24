@@ -11,7 +11,6 @@ class Login extends React.Component {
 			passwordVal: '',
 			errorMsg: '',
 			success: false,
-			firstLog: true,
 		};
 	}
 
@@ -48,20 +47,25 @@ class Login extends React.Component {
 		});
 	}
 
+	componentWillUnmount() {
+		this.props.setInitialLogin(false)
+		// debugger
+	}
+
 	render() {
-		const { emailVal, passwordVal, errorMsg, firstLog } = this.state;
-		const { isLoggedIn, location } = this.props;
+		const { emailVal, passwordVal, errorMsg } = this.state;
+		const { isLoggedIn, location, initialLogin } = this.props;
 		const params = location.search ? new URLSearchParams(location.search) : false;
 		
 		let newLocation;
 		if (params) {
 			newLocation = '/' + params.get('next');
-		} else if ((location.pathname === '/login') && ( firstLog )){
+		} else if ((location.pathname === '/login') && ( initialLogin )){
 			newLocation = "";
 		} else {
-			this.setState({firstLog: false});
 			newLocation = "/profile";
 		}
+		debugger
 
 		return (
 			<div className="login-main-container">

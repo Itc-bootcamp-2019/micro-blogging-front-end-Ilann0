@@ -5,13 +5,18 @@ function RestrictedRoute(props) {
     const { Component, isAllowed, path, redirect, ...rest } = props;
     // debugger
     return (
-        <Route {...path} {...rest} render={ (props) => ( 
-                isAllowed
-                ? ( <Component { ...props } />) 
-                : ( <Redirect to={ `${redirect}?next=${path.slice(1)}` } />)
-            )}
-        />
-    )
+		<Route
+			{...rest}
+			{...path}
+			render={ () =>
+				isAllowed ? (
+					<Component {...props} />
+				) : (
+					<Redirect to={`${redirect}?next=${path.slice(1)}`} />
+				)
+			}
+		/>
+	);
 }
 
 export default RestrictedRoute;

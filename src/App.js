@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import { subscribeAuth } from "./lib/firebase/auth/api";
-import { getUser } from "./lib/firebase/database/users";
+import { getUser, subscribeUsers, postUser } from "./lib/firebase/database/users";
 
 import './App.css';
 
@@ -19,6 +19,7 @@ import Logout from './pages/Logout';
 function App() {
     const [ user, setUser ] = useState(null);
     const [ isPending, setPending ] = useState(true);
+    const [ initialLogin, setInitialLogin ] = useState(true);
 
     function handleUserStateChange(user) {
         if (user) {
@@ -32,16 +33,20 @@ function App() {
         }
     }
 
+
     useEffect(() => {
         const unsubscribeAuth = subscribeAuth(handleUserStateChange);
+        const unsubscribeUsers = subscribeUsers(handleUserStateChange);
+
+        
         return function cleanUp() {
             unsubscribeAuth();
+            unsubscribeUsers();
         }
     }, []);
     return (
         <AppManagerContext.Provider value={ [user, isPending] }>
         <div className="App">
-            {/* // { user && JSON.stringify(user) } */}
             { !isPending ? (
             <Router>
                 <Navbar user={ !!user } />
@@ -57,13 +62,13 @@ function App() {
                             <Logout />
                         </Route>
                         <Route exact path="/login" >
-                            < Login isLoggedIn={!!user} location={window.location}/>
+                            < Login isLoggedIn={!!user} setInitialLogin={setInitialLogin} initialLogin={initialLogin} location={window.location}/>
                         </Route>
                         
 
                         {/* <RestrictedRoute Component={ Logout } isAllowed={ !!user } exact path="/logout" redirect="/login"/> */}
-                        <RestrictedRoute exact path="/" isAllowed={ !!user } Component={ TweetManager } redirect="/login"/>
-                        <RestrictedRoute exact path="/profile" isAllowed={ !!user } Component={ Profile } redirect="/login"/>
+                        <RestrictedRoute exact path="/" isAllowed={ user } Component={ TweetManager } redirect="/login" />
+                        <RestrictedRoute exact path="/profile" isAllowed={ user } Component={ Profile } redirect="/login" />
                     </Switch>
                 </section>
             </Router>

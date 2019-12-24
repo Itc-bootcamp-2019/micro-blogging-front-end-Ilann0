@@ -11,13 +11,13 @@ function Logout() {
         });
     }, [])
     return (
-        <>
+        <div style={{color:'white'}}>
             { success ? (
                 <h1>You have successfully been logged out</h1>
             ) : (
                 <h1>Pending...</h1>
             ) }
-        </>
+        </div>
     )
 }
 
