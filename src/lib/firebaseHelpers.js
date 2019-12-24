@@ -1,4 +1,4 @@
-import { firebase as firebaseApp } from "./firebase";
+import { firebaseApp } from "./firebase/firebaseConfig";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -31,8 +31,26 @@ export function postTweet(tweet) {
         .add({
             content: tweet,
             username: localStorage.getItem('username') ? localStorage.getItem('username') : 'anonymous',
-            date: new Date().toISOString()
+            date: new Date().toISOString(),
         });
+}
+
+// ----------------------------------------------
+// Users
+
+export function postUser(userObj) {
+    return db.collection('users').doc(userObj.uid).set({
+            ...userObj,
+            creation_date: new Date().toISOString(),
+    });
+}
+
+export function getUser(userUid) {
+    return db.collection('users').doc(userUid).get();
+}
+
+export function getCurrentUserId() {
+    return authRef.currentUser
 }
 
 // ----------------------------------------------
@@ -40,12 +58,14 @@ export function postTweet(tweet) {
 
 const authRef = firebaseApp.auth();
 
-export function subscribeAuth() { //callback) {
+export function subscribeAuth(callback) {
     return authRef.onAuthStateChanged(user => {
         console.log('user => ', user);
-        console.log('user uid => ', user.uid);
-        console.log('user name => ', user.displayName)
-        // callback(user);
+        if (user){
+            console.log('user uid => ', user.uid);
+            console.log('user name => ', user.displayName)
+        }
+        callback(user);
     });
 }
 
@@ -66,13 +86,10 @@ export function signIn(emailStr, passwordStr) {
 
 export function signUp(emailStr, passwordStr) {
     return authRef.createUserWithEmailAndPassword(emailStr, passwordStr)
-        .then(response => {
-            console.log('response Signup => ', response);
-        })
-        .catch(error => {
-            console.error('error Signup => ', error);
-            console.error('errorCode Signup => ', error.code);
-        });
+            .catch(error => {
+                console.error('error Signup => ', error);
+                console.error('errorCode Signup => ', error.code);
+            });
 }
 
 // ----------------------------------------------

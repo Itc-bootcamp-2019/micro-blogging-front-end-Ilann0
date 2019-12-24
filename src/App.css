@@ -34,7 +34,7 @@ nav {
 	height: 58px;
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: space-between;
 	background-color: #343A40;
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
@@ -117,6 +117,7 @@ nav a:hover {
   border-radius: 4px;
   transition-duration: 0.2s;
   transition-property: background-color, color;
+  cursor: pointer;
 }
 
 /* Had to use rgba as opacity doesn't appear to work on my safari */
@@ -135,7 +136,7 @@ nav a:hover {
 
 .post-btn.loading {
 	background-image: url(./assets/btn-loader.gif);
-	background-size: cover;
+  background-size: cover;
 	background-position: center;
 }
 
@@ -210,6 +211,7 @@ img.post-btn:active {
 /*----------------------------------------------------------*/
 /* Profile Page */
 
+.login-main-container,
 .profile-main-container {
   color: white;
   width: 100%;
@@ -218,6 +220,7 @@ img.post-btn:active {
     flex-direction: column;
 }
 
+.login-main-container > h1,
 .profile-main-container > h1 {
     font-size: 36px;
     line-height: 42px;
@@ -245,4 +248,86 @@ img.post-btn:active {
 
 .profile-main-container > button {
     align-self: flex-end;
+}
+
+/*----------------------------------------------------------*/
+/* SignUp Page */
+
+.signup-form {
+  color: white;
+}
+
+/*----------------------------------------------------------*/
+/* Login Page */
+
+.login-main-container h1 {
+  width: 100%;
+}
+
+.login-methods {
+  justify-content: center;
+  width: 100%;
+  display: flex;
+}
+
+.login-right,
+.login-left {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-left {
+  border-right: 2px solid white;
+  padding-right: 40px;
+}
+
+.login-right {
+  margin-left: 40px;
+}
+
+.login-left .post-btn {
+  align-self: flex-end;
+  margin: 8px 0;
+}
+
+.login-right .post-btn {
+  width: 100%;
+}
+
+.login-right {
+  justify-content: center;
+}
+
+.error {
+  color: orangered;
+}
+
+.login-main-container input {
+  background: none;
+  border: none;
+  border: 2px solid white;
+  border-radius: 6px;
+  color: white;
+  padding: 16px;
+  margin: 8px 0;
+}
+
+.post-btn.sign-with {
+  display: flex;
+  align-items: center;
+}
+
+.post-btn.sign-with > img{
+  vertical-align: middle;
+  height: 100%;
+  padding: 7px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: white;
+}
+
+.post-btn.sign-with span {
+  margin: 0 auto;
 }

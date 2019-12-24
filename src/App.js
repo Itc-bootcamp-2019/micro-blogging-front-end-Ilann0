@@ -1,34 +1,76 @@
-import React from 'react'
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+
+import { subscribeAuth } from "./lib/firebase/auth/api";
+import { getUser } from "./lib/firebase/database/users";
 
 import './App.css';
 
+import AppManagerContext from "./contexts/AppManagerContext";
+
+import RestrictedRoute from './components/RestrictedRoute'
 import TweetManager from "./pages/TweetManager";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Logout from './pages/Logout';
 
 function App() {
-  return (
-      <div className="App">
-          <Router>
-              <Navbar />
-              <section className="content-main-container">
-                  <Switch>
-                      <Route exact path="/">
-                          <TweetManager />
-                      </Route>
-                      <Route exact path="/profile">
-                          <Profile />
-                      </Route>
-                      <Route exact path="/login">
-                          <Login />
-                      </Route>
-                  </Switch>
-              </section>
-          </Router>
-      </div>
-  );
+    const [ user, setUser ] = useState(null);
+    const [ isPending, setPending ] = useState(true);
+
+    function handleUserStateChange(user) {
+        if (user) {
+            getUser(user.uid).then(response => {
+                setUser({ ...response.data() });
+                setPending(false);
+            });
+        } else {
+            setUser(null);
+            setPending(false);
+        }
+    }
+
+    useEffect(() => {
+        const unsubscribeAuth = subscribeAuth(handleUserStateChange);
+        return function cleanUp() {
+            unsubscribeAuth();
+        }
+    }, []);
+    return (
+        <AppManagerContext.Provider value={ [user, isPending] }>
+        <div className="App">
+            {/* // { user && JSON.stringify(user) } */}
+            { !isPending ? (
+            <Router>
+                <Navbar user={ !!user } />
+                <section className="content-main-container">
+                    <Switch>
+                        { /* Only to make sure the user can't access any of the pages if he is not logged in. */ }
+
+                        {/* <> */}
+                        <Route exact path="/signup">
+                            <SignUp />
+                        </Route>
+                        <Route exact path="/logout">
+                            <Logout />
+                        </Route>
+                        <Route exact path="/login" >
+                            < Login isLoggedIn={!!user} location={window.location}/>
+                        </Route>
+                        
+
+                        {/* <RestrictedRoute Component={ Logout } isAllowed={ !!user } exact path="/logout" redirect="/login"/> */}
+                        <RestrictedRoute exact path="/" isAllowed={ !!user } Component={ TweetManager } redirect="/login"/>
+                        <RestrictedRoute exact path="/profile" isAllowed={ !!user } Component={ Profile } redirect="/login"/>
+                    </Switch>
+                </section>
+            </Router>
+            ) : <h1>nope</h1>  /*<img src="" /> */}
+        </div> 
+        </AppManagerContext.Provider>
+    )
 }
 
 export default App;

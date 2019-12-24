@@ -8,4 +8,4 @@ const TweetManagerContext = React.createContext({
     failedRequest: false,
 })
 
-export default TweetManagerContext
+export default TweetManagerContext;
