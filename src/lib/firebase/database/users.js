@@ -1,8 +1,8 @@
 import { usersRef } from "./refs";
 
-export function subscribeUsers(callback) {
-    return usersRef.onSnapshot(snapshot => {
-            callback(snapshot.docs[0].data());
+export function subscribeUser(userId, callback) {
+    return usersRef.doc(userId).onSnapshot(snapshot => {
+            callback(snapshot)
         }, error => {
             console.error(error)
         });

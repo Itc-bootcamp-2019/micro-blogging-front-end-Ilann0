@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import { subscribeAuth } from "./lib/firebase/auth/api";
-import { getUser, subscribeUsers, postUser } from "./lib/firebase/database/users";
+import { getUser, subscribeUser } from "./lib/firebase/database/users";
 
 import './App.css';
 
@@ -13,35 +13,35 @@ import TweetManager from "./pages/TweetManager";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import SignUp2 from './pages/SignUp2';
 import Logout from './pages/Logout';
+import { usersRef } from "./lib/firebase/database/refs";
 
 function App() {
     const [ user, setUser ] = useState(null);
     const [ isPending, setPending ] = useState(true);
     const [ initialLogin, setInitialLogin ] = useState(true);
+    let unsubscribeUser;
 
     function handleUserStateChange(user) {
         if (user) {
-            getUser(user.uid).then(response => {
-                setUser({ ...response.data() });
+            unsubscribeUser = subscribeUser(user.uid, snapshot => {
+                setUser({ ...snapshot.data() })
                 setPending(false);
-            });
+            })
         } else {
             setUser(null);
             setPending(false);
+            if (unsubscribeUser) unsubscribeUser();
         }
     }
 
-
     useEffect(() => {
         const unsubscribeAuth = subscribeAuth(handleUserStateChange);
-        const unsubscribeUsers = subscribeUsers(handleUserStateChange);
-
         
         return function cleanUp() {
             unsubscribeAuth();
-            unsubscribeUsers();
+            unsubscribeUser && unsubscribeUser();
         }
     }, []);
     return (
@@ -56,7 +56,7 @@ function App() {
 
                         {/* <> */}
                         <Route exact path="/signup">
-                            <SignUp />
+                            <SignUp2 />
                         </Route>
                         <Route exact path="/logout">
                             <Logout />
