@@ -26,7 +26,7 @@ class TweetManager extends React.PureComponent {
 		this.setState({ requestPending: true });
 		postTweet({ 
 			content: tweet,
-			username: this.state.user.username,
+			owner_uid: this.state.user.uid,
 		 })
 		 	.then(() => this.setState({ requestPending: false }))
 			.catch(error => this.handleFetchError(error));

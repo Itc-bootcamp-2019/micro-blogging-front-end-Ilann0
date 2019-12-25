@@ -48,7 +48,7 @@ function Profile(props) {
 					placeholder="i.e.: Yonatan"
 					onChange={e => handleInputChange(e)}
 					value={inputVal}
-				/>
+					/>
 			</div>
 			<button className="post-btn" onClick={saveUsername}>
 				Save

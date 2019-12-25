@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import { subscribeAuth } from "./lib/firebase/auth/api";
-import { getUser, subscribeUser } from "./lib/firebase/database/users";
+import { subscribeUser } from "./lib/firebase/database/users";
 
 import './App.css';
 

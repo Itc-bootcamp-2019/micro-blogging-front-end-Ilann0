@@ -18,7 +18,6 @@ function handleSnapshot(snapshot) {
     });
 }
 
-// change to take tweet obj
 export function postTweet(tweetObj) {
     return tweetsRef.add({
             ...tweetObj,
