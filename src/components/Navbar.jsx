@@ -16,9 +16,14 @@ function Navbar(props) {
 				</div>
 				<div className="nav-right">
 					{ !user ? (
+						<>
+						<NavLink exact to="/signup" activeClassName={'active'}>
+							Sign Up
+						</NavLink>
 						<NavLink exact to="/login" activeClassName={'active'}>
 							Login
 						</NavLink>
+						</>
 					) : (
 						<NavLink exact to="/logout" activeClassName={'active'}>
 							Logout

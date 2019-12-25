@@ -253,9 +253,34 @@ img.post-btn:active {
 /*----------------------------------------------------------*/
 /* SignUp Page */
 
-.signup-form {
-  color: white;
+.login-main-container.sign-up .post-btn {
+  width: 20%;
+  margin-right: 5px;
 }
+
+.single-field input,
+.single-field {
+  width: 100%;
+}
+
+.double-field input {
+  width: 100%;
+}
+
+.single-field {
+  margin: 5px 0;
+  padding: 0 5px;
+}
+.double-field div {
+  margin: 5px 5px;
+  flex-grow: 1;
+}
+
+.double-field {
+  display: flex;
+}
+
+
 
 /*----------------------------------------------------------*/
 /* Login Page */
@@ -287,17 +312,31 @@ img.post-btn:active {
   margin-left: 40px;
 }
 
-.login-left .post-btn {
+.login-main-container .post-btn {
   align-self: flex-end;
   margin: 8px 0;
 }
 
 .login-right .post-btn {
   width: 100%;
+  margin: 10px 0;
+}
+
+.login-right :nth-child(1) {
+  background-color: rgba(0, 128, 0, 1);
+}
+
+.login-right :nth-child(1):hover {
+  background-color: rgba(0, 128, 0, 0.9);
+}
+
+.login-right :nth-child(1):active {
+  background-color: rgba(0, 128, 0, 0.7);
 }
 
 .login-right {
   justify-content: center;
+
 }
 
 .error {

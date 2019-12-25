@@ -38,7 +38,10 @@ function Profile(props) {
 
 	return (
 		<div className="profile-main-container">
-			<h1>Welcome back {user.first_name}.</h1>
+			<h1>
+				Welcome back{' '}
+				{user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)}.
+			</h1>
 			<label htmlFor="name-input">User Name</label>
 			{message && <div>{message}</div>}
 			<div className="input-frame">
@@ -48,7 +51,7 @@ function Profile(props) {
 					placeholder="i.e.: Yonatan"
 					onChange={e => handleInputChange(e)}
 					value={inputVal}
-					/>
+				/>
 			</div>
 			<button className="post-btn" onClick={saveUsername}>
 				Save

@@ -1,7 +1,7 @@
 import React from 'react';
 import { signIn } from '../lib/firebase/auth/emailAndPassword';
 import { signInWithGoogle } from '../lib/firebase/auth/google';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -48,28 +48,32 @@ class Login extends React.Component {
 	}
 
 	componentWillUnmount() {
-		this.props.setInitialLogin(false)
+		// this.props.setInitialLogin(false)
 		// debugger
 	}
 
 	render() {
 		const { emailVal, passwordVal, errorMsg } = this.state;
-		const { isLoggedIn, location, initialLogin } = this.props;
+		const { location, user, history } = this.props;
 		const params = location.search ? new URLSearchParams(location.search) : false;
 		
-		let newLocation;
 		if (params) {
-			newLocation = '/' + params.get('next');
-		} else if ((location.pathname === '/login') && ( initialLogin )){
-			newLocation = "";
+			this.newLocation = '/' + params.get('next');
 		} else {
-			newLocation = "/profile";
+			this.newLocation = "";
 		}
-		debugger
 
 		return (
 			<div className="login-main-container">
-				{isLoggedIn && <Redirect to={newLocation} />}
+				{user && (
+					<Redirect
+						to={
+							this.newLocation !== undefined
+								? this.newLocation
+								: '/profile'
+						}
+					/>
+				)}
 				<h1>Login</h1>
 				<div className="login-methods">
 					<div className="login-left">
@@ -97,8 +101,18 @@ class Login extends React.Component {
 					</div>
 					<div className="login-right">
 						<div
-							onClick={signInWithGoogle}
 							className="post-btn sign-with"
+							onClick={() => history.push('/signup')}
+						>
+							<img
+								src="https://static.thenounproject.com/png/6478-200.png"
+								alt="sign up logo"
+							/>
+							<span>Sign Up</span>
+						</div>
+						<div
+							className="post-btn sign-with"
+							onClick={signInWithGoogle}
 						>
 							<img
 								src="https://i.stack.imgur.com/TiQ81.png"
@@ -113,4 +127,4 @@ class Login extends React.Component {
 	}
 }
 
-export default Login; //withRouter(Login);
+export default withRouter(Login);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import { subscribeAuth } from "./lib/firebase/auth/api";
@@ -15,14 +15,12 @@ import Navbar from "./components/Navbar";
 import Login from './pages/Login';
 import SignUp2 from './pages/SignUp2';
 import Logout from './pages/Logout';
-import { usersRef } from "./lib/firebase/database/refs";
 
 function App() {
     const [ user, setUser ] = useState(null);
     const [ isPending, setPending ] = useState(true);
-    const [ initialLogin, setInitialLogin ] = useState(true);
-    let unsubscribeUser;
 
+    let unsubscribeUser;
     function handleUserStateChange(user) {
         if (user) {
             unsubscribeUser = subscribeUser(user.uid, snapshot => {
@@ -45,7 +43,7 @@ function App() {
         }
     }, []);
     return (
-        <AppManagerContext.Provider value={ [user, isPending] }>
+        // <AppManagerContext.Provider value={ [user, isPending] }>
         <div className="App">
             { !isPending ? (
             <Router>
@@ -62,11 +60,11 @@ function App() {
                             <Logout />
                         </Route>
                         <Route exact path="/login" >
-                            < Login isLoggedIn={!!user} setInitialLogin={setInitialLogin} initialLogin={initialLogin} location={window.location}/>
+                            <Login location={window.location} user={user}/>
                         </Route>
                         
 
-                        {/* <RestrictedRoute Component={ Logout } isAllowed={ !!user } exact path="/logout" redirect="/login"/> */}
+                        <RestrictedRoute exact path="/signup" isAllowed={ !user } Component={ SignUp2 } redirect="/profile"/>
                         <RestrictedRoute exact path="/" isAllowed={ user } Component={ TweetManager } redirect="/login" />
                         <RestrictedRoute exact path="/profile" isAllowed={ user } Component={ Profile } redirect="/login" />
                     </Switch>
@@ -74,7 +72,7 @@ function App() {
             </Router>
             ) : <h1>nope</h1>  /*<img src="" /> */}
         </div> 
-        </AppManagerContext.Provider>
+        // </AppManagerContext.Provider>
     )
 }
 

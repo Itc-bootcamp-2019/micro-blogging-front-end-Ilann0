@@ -14,12 +14,11 @@ class CreateTweet extends React.PureComponent {
         const string    = e.target.value
         const stringLen = e.target.value.replace(/\s/g, '').length
 
-        this.setState(() => {
-            return (stringLen < 141) && {
-                inputVal: string,
-                inputLen: stringLen,
-            }
-        })
+		if (stringLen < 141) 
+			this.setState({
+					inputVal: string,
+					inputLen: stringLen,
+				})
     }
 
     handlePost(val, valLen, parentCallback) {
