@@ -2,7 +2,7 @@ import React from 'react';
 
 import Tweet from './Tweet';
 
-import loader from '../assets/Double Ring-1s-200px.gif';
+import loader from '../../assets/Double Ring-1s-200px.gif';
 
 import TweetManagerContext from '../../contexts/TweetManagerContext';
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import TweetManagerContext from "../contexts/TweetManagerContext"
+import TweetManagerContext from "../../contexts/TweetManagerContext"
 
 class CreateTweet extends React.PureComponent {
     constructor(props) {
