@@ -75,14 +75,12 @@ class SignUp extends React.Component {
             passwordVal,
         } = this.state;
         
-        
-
         signUp(emailVal, passwordVal)
         .then(response => {
 			postUser({
 				first_name: fnameVal,
 				last_name: lnameVal,
-				username: usernameVal,
+				username: usernameVal ? ('@' + usernameVal) : '@',
 				email: emailVal,
                 uid: response.user.uid,
 			});

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import TweetList from '../components/TweetManager/TweetList';
+import TweetList   from '../components/TweetManager/TweetList';
 import CreateTweet from '../components/TweetManager/CreateTweet';
 // Context
 import TweetManagerContext from '../contexts/TweetManagerContext';

@@ -15,34 +15,15 @@ class Login extends React.Component {
 	}
 
 	handleSignIn() {
-		signIn(this.state.emailVal, this.state.passwordVal).catch(error =>
-			this.handleError(error)
+		signIn(this.state.emailVal, this.state.passwordVal)
+			.catch(error =>
+				this.setState({ errorMsg: error.message })
 		);
-	}
-
-	handleError(error) {
-		let msg;
-		switch (error.code) {
-			case 'auth/network-request-failed':
-				msg =
-					'We encountered a problem with the server.\nPlease verify your internet connection or try again later :)';
-				break;
-			case 'auth/invalid-email':
-				msg = 'The email entered is invalid';
-				break;
-			case 'auth/wrong-password':
-				msg = 'The password entered is invalid';
-				break;
-			default:
-				msg = 'Something went horribly wrong..';
-		}
-		this.setState({
-			errorMsg: msg,
-		});
 	}
 
 	handleInputChange(event) {
 		this.setState({
+			errorMsg: '',
 			[event.target.id]: event.target.value,
 		});
 	}
