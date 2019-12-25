@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { getUser } from "../lib/firebase/database/users"
+import { getUser } from "../../lib/firebase/database/users"
 
 function Tweet(props) {
     const [ username, setUsername ] = useState('')
     const { tweet } = props
     useEffect(() => {
         getUser(tweet.owner_uid).then(response => setUsername(response.data().username));
-    }, []);
+    }, [tweet.owner_uid]);
     
     return (
         <div className="display-tweet-container">

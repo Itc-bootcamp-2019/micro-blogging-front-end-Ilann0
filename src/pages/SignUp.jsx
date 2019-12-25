@@ -1,6 +1,6 @@
 import React from "react";
 
-import InputField from "../components/InputField";
+import InputField from "../components/SignUp/InputField";
 
 import { signUp } from '../lib/firebase/auth/emailAndPassword';
 import { postUser } from "../lib/firebase/database/users";

@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import { changeUsername } from '../lib/firebase/database/users';
+import React, { useState } from 'react';
+import { changeUserDetails } from '../lib/firebase/database/users';
 
 function Profile(props) {
     const validationRegex = new RegExp(
@@ -21,9 +21,8 @@ function Profile(props) {
 	}
 
 	function saveUsername() {
-        console.log(inputVal)
         if (validationRegex.test(inputVal.slice(1)))
-            changeUsername(inputVal, user.uid)
+            changeUserDetails({ username: inputVal }, user.uid)
                 .then(() => {
                     setMessage('Your username has been saved!');
                 })
@@ -33,8 +32,6 @@ function Profile(props) {
         else
             setMessage('Please check your username')
 	}
-
-    // debugger
 
 	return (
 		<div className="profile-main-container">

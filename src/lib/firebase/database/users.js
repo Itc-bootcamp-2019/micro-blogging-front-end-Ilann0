@@ -15,10 +15,8 @@ export function postUser(userObj) {
     });
 }
 
-export function changeUsername(userName, userId) {
-    return usersRef.doc(userId).update({
-        username: userName,
-    });
+export function changeUserDetails(propsObj, userId) {
+    return usersRef.doc(userId).update(propsObj);
 }
 
 export function getUser(userUid) {

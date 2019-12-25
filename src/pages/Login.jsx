@@ -47,11 +47,6 @@ class Login extends React.Component {
 		});
 	}
 
-	componentWillUnmount() {
-		// this.props.setInitialLogin(false)
-		// debugger
-	}
-
 	render() {
 		const { emailVal, passwordVal, errorMsg } = this.state;
 		const { location, user, history } = this.props;

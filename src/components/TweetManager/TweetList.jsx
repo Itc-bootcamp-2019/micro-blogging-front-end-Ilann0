@@ -4,7 +4,7 @@ import Tweet from './Tweet';
 
 import loader from '../assets/Double Ring-1s-200px.gif';
 
-import TweetManagerContext from '../contexts/TweetManagerContext';
+import TweetManagerContext from '../../contexts/TweetManagerContext';
 
 function TweetList() {
 	return (

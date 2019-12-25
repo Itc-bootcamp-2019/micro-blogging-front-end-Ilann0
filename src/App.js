@@ -7,12 +7,10 @@ import { subscribeUser } from "./lib/firebase/database/users";
 import loader from './assets/Double Ring-1s-200px.gif';
 import './App.css';
 
-import AppManagerContext from "./contexts/AppManagerContext";
-
-import RestrictedRoute from './components/RestrictedRoute'
+import RestrictedRoute from './components/App/RestrictedRoute'
 import TweetManager from "./pages/TweetManager";
 import Profile from "./pages/Profile";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/App/Navbar";
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Logout from './pages/Logout';
@@ -37,14 +35,14 @@ function App() {
 
     useEffect(() => {
         const unsubscribeAuth = subscribeAuth(handleUserStateChange);
-        
+        console.log('ran')
         return function cleanUp() {
             unsubscribeAuth();
             unsubscribeUser && unsubscribeUser();
         }
     }, []);
+
     return (
-        // <AppManagerContext.Provider value={ [user, isPending] }>
         <div className="App">
             { !isPending ? (
             <Router>
@@ -66,11 +64,10 @@ function App() {
             </Router>
             ) : (
                 <div className="loader-wrapper"> 
-                    <img className = "global-loader" src = {loader} /> 
+                    <img className = "global-loader" src={ loader } alt="Loading.." /> 
                 </div>
             )}
-        </div> 
-        // </AppManagerContext.Provider>
+        </div>
     )
 }
 
