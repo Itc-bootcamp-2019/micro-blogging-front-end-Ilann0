@@ -10,6 +10,7 @@ import './App.css';
 import RestrictedRoute from './components/App/RestrictedRoute'
 import TweetManager from "./pages/TweetManager";
 import Profile from "./pages/Profile";
+import Profile2 from "./pages/Profile2";
 import Navbar from "./components/App/Navbar";
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -49,6 +50,9 @@ function App() {
                 <Navbar user={ !!user } />
                 <section className="content-main-container">
                     <Switch>
+                        <Route exact path="/profile2">
+                            <Profile2 isAllowed={user}/>
+                        </Route>
                         <Route exact path="/logout">
                             <Logout />
                         </Route>

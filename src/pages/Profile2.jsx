@@ -35,15 +35,25 @@ function Profile2(props) {
 
 	return (
 		<div className="profile-main-container">
-			<h1>
-				Welcome back{' '}
-				{user.first_name.charAt(0).toUpperCase() +
-					user.first_name.slice(1)}
-				.
-			</h1>
-			<h3 className="label">
-				Full name: { user.first_name + ' ' + user.last_name }
-			</h3>
+			<div className="profile-title">
+				<h1>Profile</h1>
+				<button className="post-btn">Edit</button>
+			</div>
+			<div className="profile-card">
+				<div className="profile-top">
+					<img
+						className="profile-avatar"
+						src={user.avatar}
+						alt="Avatar"
+					/>
+					<div className="profile-name-container">
+						<h3>{user.first_name}</h3>
+						<h3>{user.last_name}</h3>
+						<h3 className="profile-username">{user.username}</h3>
+					</div>
+				</div>
+				<h3 className="profile-email">{user.email}</h3>
+			</div>
 		</div>
 	);
 

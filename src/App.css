@@ -273,6 +273,77 @@ img.post-btn:active {
     align-self: flex-end;
 }
 
+.label {
+  font-size: 20px;
+}
+
+.label > span {
+  display: block;
+  font-weight: 400;
+  line-height: 50px;
+}
+
+.profile-card {
+  background-color: #343A40;
+  border-radius: 6px;
+  padding: 15px;
+  min-height: 400px;
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  align-self: center;
+}
+
+.profile-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-title .post-btn {
+  margin: 0 5%;
+}
+
+.profile-card img {
+  height: 150px;
+  width: 150px;
+  background-color: white;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+.profile-name-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-name-container h3 {
+  padding: 2px;
+}
+
+.profile-username {
+  flex-basis: 100%;
+  text-align: center;
+  margin: 0 0;
+  margin-top: -20px;
+  font-weight: normal;
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+}
+
 /*----------------------------------------------------------*/
 /* SignUp Page */
 
