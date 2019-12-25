@@ -56,24 +56,26 @@ class CreateTweet extends React.PureComponent {
 						{inputLen}/140
 					</span>
 					<TweetManagerContext.Consumer>
-						{
-						({ onPost, requestPending }) => {
-								return (
+						{({ onPost, requestPending }) => {
+							return (
 								<button
-									className={ 
-										requestPending 
-											? buttonClass + ' loading' 
+									className={
+										requestPending
+											? buttonClass + ' loading'
 											: buttonClass
 									}
 									onClick={() =>
-										this.handlePost(inputVal, inputLen, onPost)
+										this.handlePost(
+											inputVal,
+											inputLen,
+											onPost
+										)
 									}
 								>
 									{!requestPending && 'Post'}
 								</button>
-								)
-							}
-						}
+							);
+						}}
 					</TweetManagerContext.Consumer>
 				</div>
 			</div>

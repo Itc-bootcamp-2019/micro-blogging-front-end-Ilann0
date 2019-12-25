@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { changeUserDetails } from '../lib/firebase/database/users';
 
-function Profile(props) {
+function Profile2(props) {
     const validationRegex = new RegExp(
 		'^[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$', 'g'
 	);
     const { isAllowed: user } = props;
 
-	const [inputVal, setInputVal] = useState(user.username.slice(1));
+	const [inputVal, setInputVal] = useState(user.username);
 	const [message, setMessage] = useState('');
 
 	function handleInputChange(e) {
@@ -35,10 +35,25 @@ function Profile(props) {
 
 	return (
 		<div className="profile-main-container">
-			<h1 className="main-h1">
-				Profile
+			<h1>
+				Welcome back{' '}
+				{user.first_name.charAt(0).toUpperCase() +
+					user.first_name.slice(1)}
+				.
 			</h1>
-			<label htmlFor="name-input">Username</label>
+			<h3 className="label">
+				Full name: { user.first_name + ' ' + user.last_name }
+			</h3>
+		</div>
+	);
+
+	return (
+		<div className="profile-main-container">
+			<h1>
+				Welcome back{' '}
+				{user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)}.
+			</h1>
+			<label htmlFor="name-input">User Name</label>
 			{message && <div>{message}</div>}
 			<div className="input-frame">
 				<input
@@ -56,4 +71,6 @@ function Profile(props) {
 	);
 }
 
-export default Profile;
+
+
+export default Profile2;

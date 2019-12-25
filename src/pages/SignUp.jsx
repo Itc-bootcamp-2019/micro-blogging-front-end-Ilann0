@@ -80,7 +80,7 @@ class SignUp extends React.Component {
 			postUser({
 				first_name: fnameVal,
 				last_name: lnameVal,
-				username: usernameVal ? ('@' + usernameVal) : '@',
+				username: usernameVal ? ('@' + usernameVal) : '',
 				email: emailVal,
                 uid: response.user.uid,
 			});

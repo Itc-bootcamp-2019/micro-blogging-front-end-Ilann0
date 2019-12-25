@@ -6,6 +6,12 @@
   box-sizing: border-box;
 }
 
+.main-h1 {
+  color: white;
+  width: 100%;
+  max-width: 700px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -232,6 +238,7 @@ img.post-btn:active {
     flex-direction: column;
 }
 
+.App h1,
 .login-main-container > h1,
 .profile-main-container > h1 {
     font-size: 36px;
@@ -241,8 +248,6 @@ img.post-btn:active {
 .profile-main-container > label {
     font-size: 18px;
     line-height: 21px;
-    /*margin-bottom: 6px;*/
-
 }
 
 .profile-main-container .input-frame {
@@ -256,6 +261,12 @@ img.post-btn:active {
     color: #cccccc;
     width: 100%;
     height: 100%;
+    padding-left: 15px;
+}
+
+.profile-main-container .input-frame::before {
+    content: '@';
+    position: absolute;
 }
 
 .profile-main-container > button {

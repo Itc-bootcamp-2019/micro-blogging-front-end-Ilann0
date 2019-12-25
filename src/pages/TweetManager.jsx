@@ -56,8 +56,13 @@ class TweetManager extends React.PureComponent {
 	}
 
 	render() {
+		const { user } = this.state;
 		return (
 			<TweetManagerContext.Provider value={this.state}>
+				<h1 className='main-h1'>
+					Welcome back{' '}
+					{user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)}.
+				</h1>
 				<CreateTweet />
 				<TweetList />
 			</TweetManagerContext.Provider>
