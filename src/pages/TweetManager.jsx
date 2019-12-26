@@ -107,7 +107,7 @@ class TweetManager extends React.PureComponent {
 
 		return (
 			<TweetManagerContext.Provider value={this.state}>
-				<button onClick={() => this.updateTweets()}>click</button>
+				<button onClick={() => this.updateTweets()}>Update tweets</button>
 				<h1 className="main-h1">
 					Welcome back{' '}
 					{user.first_name.charAt(0).toUpperCase() +

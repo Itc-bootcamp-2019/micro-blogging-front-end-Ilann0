@@ -36,7 +36,7 @@ function TweetList(props) {
 							next={fetchMore}
 							hasMore={hasMore}
 							className="tweet-list-main-container"
-							loader={<h4>Loading...</h4>}
+							loader={<img src={loader} alt="Loading..." />}
 						>
 							{/* {console.log(tweetsLength)} */}
 							{tweets.map(tweet => (

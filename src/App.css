@@ -140,7 +140,7 @@ nav a:hover {
 /* Had to use rgba as opacity doesn't appear to work on my safari */
 
 .post-btn:hover {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .post-btn.loading,
@@ -443,7 +443,7 @@ img.post-btn:active {
 
 .login-right > :nth-child(1):hover {
   /* background-color: rgba(0, 128, 0, 0.9); */
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .login-right > :nth-child(1):active {
