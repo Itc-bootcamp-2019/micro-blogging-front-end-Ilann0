@@ -19,11 +19,18 @@ function handleSnapshot(snapshot) {
     });
 }
 
-export async function getNextTweets(parentCallback) {
-    const snapshot = await tweetsRef.orderBy('date', 'desc').limit(10).get();
+export async function getNextTweets(startingDoc, parentCallback) {
+    const limit = 5;
+    const ref = tweetsRef.orderBy('date', 'desc').limit(limit);
+    let snapshot;
+    if (startingDoc) {
+        snapshot = await ref.startAfter(startingDoc).get();
+    } else {
+        snapshot = await ref.get();
+    }
     try {
         parentCallback(handleSnapshot(snapshot));
-        return tweetsRef.orderBy('date', 'desc').limit(10).startAfter(snapshot.docs[snapshot.docs.length - 1]).get
+        return snapshot.docs[snapshot.docs.length - 1];
     } catch (error) {
         return false;
     }

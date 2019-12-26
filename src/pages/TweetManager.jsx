@@ -25,9 +25,9 @@ class TweetManager extends React.PureComponent {
 		};
 	}
 
-	handleFetchMore() {
-		// getNextTweets(tweetId)
-		console.log('fetchMore')
+	async handleFetchMore() {
+		this.nextBatch = await getNextTweets(this.nextBatch, this.updateTweets.bind(this));
+		this.setState({hasMore: !!this.nextBatch})
 	}
 
 	handleTweetSend(tweet) {
@@ -50,12 +50,12 @@ class TweetManager extends React.PureComponent {
 	}
 
 	updateTweets(tweets) {
-		this.setState({ 
-			tweets: tweets,
-			tweetsLength: tweets.length,
-		}, () => {
+		this.setState( (prevState) => ({
+			tweets: [ ...prevState.tweets, ...tweets ],
+			tweetsLength: prevState.tweets.length + tweets.length,
+		}), () => {
 			if (this.state.initialLoad) this.setState({ initialLoad: false });
-		});
+		})
 	}
 
 	// async doesHaveMore() {
@@ -80,8 +80,8 @@ class TweetManager extends React.PureComponent {
 	// }
 
 	async componentDidMount() {
-		this.unsubscribeTweets = subscribeTweets(this.updateTweets.bind(this));
-		window.nextBatch = await getNextTweets(console.log);
+		// this.unsubscribeTweets = subscribeTweets(this.updateTweets.bind(this));
+		this.nextBatch = await getNextTweets(false, this.updateTweets.bind(this));
 
 	}
 
