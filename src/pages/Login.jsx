@@ -1,4 +1,5 @@
 import React from 'react';
+import { postUser } from "../lib/firebase/database/users";
 import { signIn } from '../lib/firebase/auth/emailAndPassword';
 import { signInWithGoogle } from '../lib/firebase/auth/google';
 import { Redirect, withRouter } from 'react-router-dom';
@@ -19,6 +20,23 @@ class Login extends React.Component {
 			.catch(error =>
 				this.setState({ errorMsg: error.message })
 		);
+	}
+
+	handleGoogleSignIn() {
+		signInWithGoogle()
+			.then(response => {
+				const { isNewUser, profile } = response.additionalUserInfo;
+				debugger
+				if ( isNewUser ) {
+					postUser({
+						first_name: profile.given_name,
+						last_name: profile.family_name ? profile.family_name : '',
+						email: profile.email,
+						avatar: profile.picture,
+						uid: response.user.uid,
+					})
+				}
+			})
 	}
 
 	handleInputChange(event) {
@@ -88,7 +106,7 @@ class Login extends React.Component {
 						</div>
 						<div
 							className="post-btn sign-with"
-							onClick={signInWithGoogle}
+							onClick={this.handleGoogleSignIn.bind(this)}
 						>
 							<img
 								src="https://i.stack.imgur.com/TiQ81.png"

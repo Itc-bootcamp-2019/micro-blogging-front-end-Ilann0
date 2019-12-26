@@ -8,13 +8,12 @@ function RestrictedRoute(props) {
 		<Route
 			{...rest}
 			{...path}
-			render={ () =>
-				isAllowed ? (
-					<Component {...props} />
-				) : (
-					<Redirect to={`${redirect}?next=${path.slice(1)}`} />
-				)
-			}
+			render={ () => (
+				<>
+					{ !!isAllowed && <Component {...props} /> }
+					{  !isAllowed && <Redirect to={`${redirect}?next=${path.slice(1)}`} /> }
+				</>
+			)}
 		/>
 	);
 }

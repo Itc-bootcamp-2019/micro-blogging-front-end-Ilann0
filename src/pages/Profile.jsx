@@ -7,7 +7,7 @@ function Profile(props) {
 	);
     const { isAllowed: user } = props;
 
-	const [inputVal, setInputVal] = useState(user.username.slice(1));
+	const [inputVal, setInputVal] = useState(user.username ? user.username.slice(1) : '');
 	const [message, setMessage] = useState('');
 
 	function handleInputChange(e) {
