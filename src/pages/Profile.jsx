@@ -8,9 +8,16 @@ function Profile(props) {
     const { isAllowed: user } = props;
 
 	const [inputVal, setInputVal] = useState(user.username ? user.username.slice(1) : '');
-	const [message, setMessage] = useState('');
+	const [message, setMessage] = useState({
+		isError: false,
+		msg: '',
+	});
 
 	function handleInputChange(e) {
+		setMessage({
+			isError: false,
+			msg: '',
+		})
 		setInputVal(e.target.value);
 	}
 
@@ -24,22 +31,31 @@ function Profile(props) {
         if (validationRegex.test(inputVal.slice(1)))
             changeUserDetails({ username: '@' + inputVal }, user.uid)
                 .then(() => {
-                    setMessage('Your username has been saved!');
+                    setMessage({
+						isError: false,
+						msg: 'Your username has been saved!',
+					});
                 })
                 .catch(error => {
                     handleError(error);
                 });
-        else
-            setMessage('Please check your username')
+		else if (inputVal === '')
+			setMessage({
+				isError: true,
+				msg: 'Uesername cannot be empty',
+			})
+		else
+            setMessage({
+				isError: true,
+				msg: 'Username contains bad characters',
+			})
 	}
 
 	return (
 		<div className="profile-main-container">
-			<h1 className="main-h1">
-				Profile
-			</h1>
+			<h1 className="main-h1">Profile</h1>
 			<label htmlFor="name-input">Username</label>
-			{message && <div>{message}</div>}
+			{message.msg && <div className={ message.isError && 'error' }>{message.msg}</div>}
 			<div className="input-frame">
 				<input
 					id="name-input"

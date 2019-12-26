@@ -21,16 +21,27 @@ function Profile2(props) {
 	}
 
 	function saveUsername() {
-        if (validationRegex.test(inputVal.slice(1)))
-            changeUserDetails({ username: '@' + inputVal }, user.uid)
-                .then(() => {
-                    setMessage('Your username has been saved!');
-                })
-                .catch(error => {
-                    handleError(error);
-                });
-        else
-            setMessage('Please check your username')
+		if (validationRegex.test(inputVal.slice(1)))
+			changeUserDetails({ username: '@' + inputVal }, user.uid)
+				.then(() => {
+					setMessage({
+						isError: false,
+						msg: 'Your username has been saved!',
+					});
+				})
+				.catch(error => {
+					handleError(error);
+				});
+		else if (inputVal === '')
+			setMessage({
+				isError: true,
+				msg: 'Uesername cannot be empty',
+			});
+		else
+			setMessage({
+				isError: true,
+				msg: 'Username contains bad characters',
+			});
 	}
 
 	return (
@@ -49,34 +60,12 @@ function Profile2(props) {
 					<div className="profile-name-container">
 						<h3>{user.first_name}</h3>
 						<h3>{user.last_name}</h3>
-						<h3 className="profile-username">{user.username}</h3>
+						{ !!user.username && <h3 className="profile-username">{user.username}</h3>}
+						{  !user.username && <h3 className="profile-username link">Set username</h3>}
 					</div>
 				</div>
 				<h3 className="profile-email">{user.email}</h3>
 			</div>
-		</div>
-	);
-
-	return (
-		<div className="profile-main-container">
-			<h1>
-				Welcome back{' '}
-				{user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)}.
-			</h1>
-			<label htmlFor="name-input">User Name</label>
-			{message && <div>{message}</div>}
-			<div className="input-frame">
-				<input
-					id="name-input"
-					type="text"
-					placeholder="KebabEater3000"
-					onChange={e => handleInputChange(e)}
-					value={inputVal}
-				/>
-			</div>
-			<button className="post-btn" onClick={saveUsername}>
-				Save
-			</button>
 		</div>
 	);
 }

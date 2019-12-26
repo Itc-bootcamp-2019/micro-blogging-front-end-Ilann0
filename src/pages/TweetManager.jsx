@@ -6,7 +6,7 @@ import CreateTweet from '../components/TweetManager/CreateTweet';
 // Context
 import TweetManagerContext from '../contexts/TweetManagerContext';
 // Database
-import { subscribeTweets, postTweet } from '../lib/firebase/database/tweets';
+import { subscribeTweets, postTweet, getNextTweets } from '../lib/firebase/database/tweets';
 
 class TweetManager extends React.PureComponent {
 	constructor(props) {
@@ -19,7 +19,15 @@ class TweetManager extends React.PureComponent {
 			initialLoad: true,
 			failedRequest: false,
 			user: this.props.isAllowed,
+			hasMore: true,
+			tweetsLength: 0,
+			fetchMore: this.handleFetchMore.bind(this),
 		};
+	}
+
+	handleFetchMore() {
+		// getNextTweets(tweetId)
+		console.log('fetchMore')
 	}
 
 	handleTweetSend(tweet) {
@@ -42,13 +50,39 @@ class TweetManager extends React.PureComponent {
 	}
 
 	updateTweets(tweets) {
-		this.setState({ tweets }, () => {
+		this.setState({ 
+			tweets: tweets,
+			tweetsLength: tweets.length,
+		}, () => {
 			if (this.state.initialLoad) this.setState({ initialLoad: false });
 		});
 	}
 
-	componentDidMount() {
+	// async doesHaveMore() {
+	// 	this.response = await getNextTweets(this.state.tweets[this.state.tweets.length - 1].id);
+	// 	if (this.response) {
+	// 		this.setState( (prevState) => ({
+	// 				tweets: [ this.response.docs(), ...prevState.tweets ],
+	// 				tweetsLength: this.response.docs().length,
+	// 			})
+	// 		);
+	// 	}
+		// getNextTweets()
+		// 	.then(response => {
+		// 		if (response) {
+		// 			this.setState((prevState) => ({
+		// 					tweets: [ response.docs(), ...prevState.tweets ],
+		// 					tweetsLength: response.docs().length,
+		// 				})
+		// 			);
+		// 		}
+		// 	}) 
+	// }
+
+	async componentDidMount() {
 		this.unsubscribeTweets = subscribeTweets(this.updateTweets.bind(this));
+		window.nextBatch = await getNextTweets(console.log);
+
 	}
 
 	componentWillUnmount() {

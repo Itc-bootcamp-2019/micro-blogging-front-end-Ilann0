@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Tweet from './Tweet';
 
@@ -6,10 +7,12 @@ import loader from '../../assets/Double Ring-1s-200px.gif';
 
 import TweetManagerContext from '../../contexts/TweetManagerContext';
 
-function TweetList() {
+
+function TweetList(props) {
+
 	return (
 		<TweetManagerContext.Consumer>
-			{({ tweets, initialLoad, failedRequest }) => {
+			{({ tweets, initialLoad, failedRequest, hasMore, tweetsLength, fetchMore }) => {
 				if (initialLoad) {
 					return <img src={loader} alt="Loading..." />;
 				} else if (failedRequest) {
@@ -27,6 +30,21 @@ function TweetList() {
 						</div>
 					);
 				} else {
+					return (
+						<InfiniteScroll
+							dataLength={tweetsLength}
+							next={fetchMore}
+							hasMore={hasMore}
+							className="tweet-list-main-container"
+							loader={<h4>Loading...</h4>}
+						>
+							{/* {console.log(tweetsLength)} */}
+							{tweets.map(tweet => (
+								<Tweet key={tweet.id} tweet={tweet} />
+							))}
+						</InfiniteScroll>
+					);
+
 					return tweets.map(tweet => (
 						<Tweet key={tweet.id} tweet={tweet}/>
 					));

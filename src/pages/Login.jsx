@@ -26,7 +26,6 @@ class Login extends React.Component {
 		signInWithGoogle()
 			.then(response => {
 				const { isNewUser, profile } = response.additionalUserInfo;
-				debugger
 				if ( isNewUser ) {
 					postUser({
 						first_name: profile.given_name,
@@ -37,6 +36,7 @@ class Login extends React.Component {
 					})
 				}
 			})
+			.catch(error => console.log('error => ', error))
 	}
 
 	handleInputChange(event) {

@@ -7,6 +7,9 @@ const TweetManagerContext = React.createContext({
     initialLoad: true,
     failedRequest: false,
     user: {},
+    hasMore: false, 
+    tweetsLength: 0, 
+    fetchMore: () => {},
 })
 
 export default TweetManagerContext;
