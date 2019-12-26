@@ -30,7 +30,7 @@ class TweetManager extends React.PureComponent {
 		this.nextBatch = await getNextTweets(
 			this.nextBatch,
 			this.limit,
-			this.updateTweets.bind(this)
+			this.loadMoreTweets.bind(this)
 		);
 		this.setState({ hasMore: !!this.nextBatch });
 	}
@@ -41,13 +41,16 @@ class TweetManager extends React.PureComponent {
 			content: tweet,
 			owner_uid: this.state.user.uid,
 		})
-			.then(() => this.setState({ requestPending: false }))
+			.then(() => {
+				this.updateTweets();
+				this.setState({ requestPending: false });
+			})
 			.catch(error => this.handleFetchError(error));
 	}
 
-	addNewTweets() {
+	updateTweets() {
 		this.setState( prevState => ({
-				tweets: [...this.tweetsUpdateQueu, ...prevState.tweets],
+				tweets: [ ...this.tweetsUpdateQueu, ...prevState.tweets ],
 			}), () => {
 				this.unsubscribeTweets();
 				this.unsubscribeTweets = subscribeTweets(this.state.tweets[0].date,this.handleNewTweets.bind(this)
@@ -69,7 +72,7 @@ class TweetManager extends React.PureComponent {
 		});
 	}
 
-	updateTweets(tweets) {
+	loadMoreTweets(tweets) {
 		this.setState(
 			prevState => ({
 				tweets: [...prevState.tweets, ...tweets],
@@ -85,14 +88,14 @@ class TweetManager extends React.PureComponent {
 		this.nextBatch = await getNextTweets(
 			null,
 			this.limit,
-			this.updateTweets.bind(this)
+			this.loadMoreTweets.bind(this)
 		);
 		this.unsubscribeTweets = subscribeTweets(
 			this.state.tweets[0].date,
 			this.handleNewTweets.bind(this)
 		);
 
-		if (!!this.nextBatch) this.setState({ hasMore: true });
+		this.setState({ hasMore: !!this.nextBatch });
 	}
 
 	componentWillUnmount() {
@@ -104,7 +107,7 @@ class TweetManager extends React.PureComponent {
 
 		return (
 			<TweetManagerContext.Provider value={this.state}>
-				<button onClick={() => this.addNewTweets()}>click</button>
+				<button onClick={() => this.updateTweets()}>click</button>
 				<h1 className="main-h1">
 					Welcome back{' '}
 					{user.first_name.charAt(0).toUpperCase() +
