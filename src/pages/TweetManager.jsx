@@ -20,7 +20,6 @@ class TweetManager extends React.PureComponent {
 			failedRequest : false,
 			user		  : this.props.isAllowed,
 			hasMore		  : false,
-			tweetsLength  : 0,
 			fetchMore	  : this.handleFetchMore.bind(this),
 			needsUpdate	  : false,
 		};
@@ -69,7 +68,6 @@ class TweetManager extends React.PureComponent {
 		this.setState(
 			prevState => ({
 				tweets: [...prevState.tweets, ...tweets],
-				tweetsLength: prevState.tweets.length + tweets.length,
 			}), () => {
 				if (this.state.initialLoad)
 				this.setState({ initialLoad: false });
@@ -78,22 +76,18 @@ class TweetManager extends React.PureComponent {
 		}
 		
 	async handleFetchMore() {
-		this.nextBatch = await getNextTweets(
-			this.nextBatch,
-			this.limit,
-			this.loadMoreTweets.bind(this)
-		);
+		this.nextBatch = await this.nextBatch();
 		this.setState({ hasMore: !!this.nextBatch });
 	}
 
 	async componentDidMount() {
 		this.nextBatch = await getNextTweets(
-			null,
 			this.limit,
 			this.loadMoreTweets.bind(this)
 		);
+		
 		this.unsubscribeTweets = subscribeTweets(
-			this.state.tweets[0].date,
+			this.state.tweets[0].id,
 			this.handleNewTweets.bind(this)
 		);
 

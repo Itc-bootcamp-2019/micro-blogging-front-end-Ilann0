@@ -21,20 +21,17 @@ function cleanUpSnapshot(snapshot) {
     });
 }
 
-export async function getNextTweets(startingDoc, limit, parentCallback) {
+export async function getNextTweets(limit, parentCallback, startingDoc) {
     const ref = tweetsRef.orderBy('date', 'desc').limit(limit);
-
-    let snapshot;
-    if (startingDoc) {
-        snapshot = await ref.startAfter(startingDoc).get();
-    } else {
-        snapshot = await ref.get();
-    }
-
+    const snapshot = startingDoc ? await ref.startAfter(startingDoc).get() : await ref.get();
     try {
         parentCallback(cleanUpSnapshot(snapshot));
-        return snapshot.docs[snapshot.docs.length - 1];
+        if (snapshot.docs.length !== 0)
+            return () => getNextTweets(limit, parentCallback, snapshot.docs[snapshot.docs.length - 1]);
+        return false;
+
     } catch (error) {
+        console.error(error);
         return false;
     }
 }

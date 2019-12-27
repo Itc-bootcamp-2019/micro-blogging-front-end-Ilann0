@@ -12,7 +12,7 @@ function TweetList(props) {
 
 	return (
 		<TweetManagerContext.Consumer>
-			{({ tweets, initialLoad, failedRequest, hasMore, tweetsLength, fetchMore }) => {
+			{({ tweets, initialLoad, failedRequest, hasMore, fetchMore }) => {
 				if (initialLoad) {
 					return <img src={loader} alt="Loading..." />;
 				} else if (failedRequest) {
@@ -32,13 +32,12 @@ function TweetList(props) {
 				} else {
 					return (
 						<InfiniteScroll
-							dataLength={tweetsLength}
+							dataLength={tweets.length}
 							next={fetchMore}
 							hasMore={hasMore}
 							className="tweet-list-main-container"
 							loader={<img src={loader} alt="Loading..." />}
 						>
-							{/* {console.log(tweetsLength)} */}
 							{tweets.map(tweet => (
 								<Tweet key={tweet.id} tweet={tweet} />
 							))}

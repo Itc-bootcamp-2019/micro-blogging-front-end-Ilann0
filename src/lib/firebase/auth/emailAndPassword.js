@@ -6,8 +6,8 @@ export function signUp(emailStr, passwordStr) {
 
 export function signIn(emailStr, passwordStr) {
     return authRef.signInWithEmailAndPassword(emailStr, passwordStr)
-        // .catch(error => {
-        //     console.error('error Signin => ', error);
+        .catch(error => {
+            console.error('error Signin => ', error);
         //     console.error('errorCode Signin => ', error.code);
-        // });
+        });
 }
