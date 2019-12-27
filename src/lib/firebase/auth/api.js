@@ -2,10 +2,10 @@ import { authRef } from "./refs";
 
 export function subscribeAuth(callback) {
     return authRef.onAuthStateChanged(user => {
-        console.log('user => ', user);
+        // console.log('user => ', user);
         if (user) {
-            console.log('user uid => ', user.uid);
-            console.log('user name => ', user.displayName)
+            // console.log('user uid => ', user.uid);
+            // console.log('user name => ', user.displayName)
         }
         callback(user);
     });

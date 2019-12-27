@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import React from 'react';
 
 import Tweet from './Tweet';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import loader from '../../assets/Double Ring-1s-200px.gif';
 
@@ -44,10 +44,6 @@ function TweetList(props) {
 							))}
 						</InfiniteScroll>
 					);
-
-					return tweets.map(tweet => (
-						<Tweet key={tweet.id} tweet={tweet}/>
-					));
 				}
 			}}
 		</TweetManagerContext.Consumer>
